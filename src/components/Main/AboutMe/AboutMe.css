@@ -1,0 +1,103 @@
+.aboutMe {
+    width: 100%;
+}
+
+.aboutMe__section {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 110px 70px 125px;
+}
+
+.aboutMe__container-profile {
+    margin: 66px 0 101px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.aboutMe__title {
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 58px;
+    letter-spacing: -0.04em;
+    margin: 0;
+    width: 600px;
+}
+
+.aboutMe__subtitle {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 20px;
+    mix-blend-mode: normal;
+    width: 600px;
+    margin: 18px 0 26px;
+}
+
+.aboutMe__info {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    width: 600px;
+}
+
+.aboutMe__social-list {
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    padding-left: 0;
+    margin: 99px 0 0;
+}
+
+.aboutMe__social-link {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    text-decoration: none;
+    color: #000000;
+    margin-right: 20px;
+    opacity: 1;
+    transition: opacity .2s ease .1s;
+}
+
+.aboutMe__social-link:hover {
+    opacity: 0.4;
+}
+
+.aboutMe__portfolio-title {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 20px;
+    color: #A0A0A0;
+    margin: 0 0 50px;
+}
+
+.aboutMe__portfolio-list {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.aboutMe__portfolio-item {
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0 19px;
+}
+
+.aboutMe__portfolio-link {
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 50px;
+    text-decoration: none;
+    color: #000000;
+    opacity: 1;
+    transition: opacity .2s ease .1s;
+}
+
+.aboutMe__portfolio-link:hover {
+    opacity: .4;
+}
+
+.aboutMe__portfolio-border {
+    border-bottom: solid 1px #E8E8E8;
+}

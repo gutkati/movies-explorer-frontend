@@ -1,0 +1,69 @@
+.aboutProject {
+    width: 100%;
+}
+
+.aboutProject__section {
+    max-width: 1140px;
+    padding: 110px 70px;
+    color: #000000;
+    margin: 0 auto;
+}
+
+.aboutProject__container {
+    display: flex;
+    flex-direction: row;
+    padding-top: 70px;
+}
+
+.aboutProject__description {
+    max-width: 550px;
+    margin-right: 140px;
+}
+
+.aboutProject__description-title {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: -0.04em;
+    margin: 0;
+}
+.aboutProject__description-text{
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    margin: 26px 0 0;
+}
+
+.aboutProject__section-brief {
+    min-width: 228px;
+}
+
+.aboutProject__section-long {
+    min-width: 912px;
+}
+
+.aboutProject__time {
+    background-color: #F2F2F2;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    min-height: 36px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.aboutProject__time_theme_colored {
+    background-color: #2BE080;
+}
+
+.aboutProject__app {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    color: #A0A0A0;
+    text-align: center;
+    margin: 14px 0 0;
+}
+

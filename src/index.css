@@ -1,0 +1,12 @@
+@import './vendor/normalize.css';
+@import "./vendor/fonts/inter.css";
+
+@import "components/Main/Main.css";
+@import "components/Main/Promo/Promo.css";
+@import "components/Main/NavTab/NavTab.css";
+@import "components/Main/AboutProject/AboutProject.css";
+@import "components/Main/SectionTitle/SectionTitle.css";
+@import "components/Main/Techs/Techs.css";
+@import "components/Main/AboutMe/AboutMe.css";
+
+@import "components/Footer/Footer.css";

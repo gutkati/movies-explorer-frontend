@@ -1,0 +1,10 @@
+.sectionTitle {
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 27px;
+    color: #000000;
+    border-bottom: solid 1px #000000;
+    max-width: 1140px;
+    padding-bottom: 23px;
+    margin: 0;
+}
