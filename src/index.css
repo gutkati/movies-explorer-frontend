@@ -1,6 +1,7 @@
 @import './vendor/normalize.css';
 @import "./vendor/fonts/inter.css";
 
+@import "blocks/page/page.css";
 @import "components/Main/Main.css";
 @import "components/Main/Promo/Promo.css";
 @import "components/Main/NavTab/NavTab.css";
@@ -9,4 +10,17 @@
 @import "components/Main/Techs/Techs.css";
 @import "components/Main/AboutMe/AboutMe.css";
 
+@import "components/Header/Header.css";
+
+@import "components/Register/Register.css";
+
+@import "components/Profile/Profile.css";
+
+@import "components/Movies/Movies.css";
+@import "components/Movies/SearchForm/SearchForm.css";
+@import "components/FilterCheckbox/FilterCheckbox.css";
+
 @import "components/Footer/Footer.css";
+
+@import "components/SectionWelcome/SectionWelcome.css";
+@import "components/SubmitBatton/SubmitButton.css";

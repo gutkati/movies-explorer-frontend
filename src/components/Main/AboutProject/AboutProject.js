@@ -2,10 +2,10 @@ import React from "react";
 
 function AboutProject(props) {
     return (
-        <section className='aboutProject'>
+        <section className='aboutProject' id='aboutProjectId'>
             <div className='aboutProject__section'>
                 {props.children}
-                <div className='aboutProject__container'>
+                <div className='aboutProject__container-description'>
                     <div className='aboutProject__description'>
                         <h3 className='aboutProject__description-title'>Дипломный проект включал 5 этапов</h3>
                         <p className='aboutProject__description-text'>Составление плана, работу над бэкендом, вёрстку,
@@ -18,7 +18,7 @@ function AboutProject(props) {
                             которые нужно было соблюдать, чтобы успешно защититься.</p>
                     </div>
                 </div>
-                <div className='aboutProject__container'>
+                <div className='aboutProject__container-time'>
                     <div className='aboutProject__section-brief'>
                         <p className='aboutProject__time aboutProject__time_theme_colored'>1 неделя</p>
                         <p className='aboutProject__app'>Back-end</p>

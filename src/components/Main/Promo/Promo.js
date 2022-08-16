@@ -5,13 +5,15 @@ import NavTab from "../NavTab/NavTab.js";
 function Promo() {
     return (
         <section className='promo main__promo'>
-            <div className='promo__container'>
-                <img className='promo__img' src={LandingLogo} alt='Картинка проекта'/>
+            <div className='promo__section'>
+                <div className='promo__container-image'>
+                    <img className='promo__img' src={LandingLogo} alt='Картинка проекта'/>
+                </div>
                 <h1 className='promo__title'>
-                Учебный проект студента факультета Веб-разработки.
+                    Учебный проект студента факультета Веб-разработки.
                 </h1>
             </div>
-            <NavTab />
+            <NavTab/>
         </section>
     )
 }

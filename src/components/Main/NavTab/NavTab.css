@@ -18,6 +18,17 @@
     cursor: pointer;
 }
 
+.navTab__link:last-of-type {
+    margin-right: 0;
+}
+
 .navTab__link:hover {
-    opacity: .6;
+    opacity: .7;
+}
+
+@media screen and (max-width: 450px) {
+    .navTab__link {
+        font-size: 11px;
+        margin-right: 24px;
+    }
 }

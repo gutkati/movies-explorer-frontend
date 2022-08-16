@@ -9,15 +9,19 @@
     margin: 0 auto;
 }
 
-.aboutProject__container {
+.aboutProject__container-description {
     display: flex;
     flex-direction: row;
-    padding-top: 70px;
+    margin-top: 70px;
 }
 
 .aboutProject__description {
     max-width: 550px;
-    margin-right: 140px;
+    margin-right: 40px;
+}
+
+.aboutProject__description:last-of-type {
+    margin-right: 0;
 }
 
 .aboutProject__description-title {
@@ -27,11 +31,18 @@
     letter-spacing: -0.04em;
     margin: 0;
 }
-.aboutProject__description-text{
+
+.aboutProject__description-text {
     font-weight: 400;
     font-size: 14px;
     line-height: 20px;
     margin: 26px 0 0;
+}
+
+.aboutProject__container-time {
+    display: flex;
+    flex-direction: row;
+    margin-top: 110px;
 }
 
 .aboutProject__section-brief {
@@ -39,7 +50,7 @@
 }
 
 .aboutProject__section-long {
-    min-width: 912px;
+    width: 912px;
 }
 
 .aboutProject__time {
@@ -67,3 +78,81 @@
     margin: 14px 0 0;
 }
 
+@media screen and (max-width: 1279px) {
+    .aboutProject__section {
+        max-width: 90%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .aboutProject__section {
+        padding: 90px 50px;
+    }
+
+    .aboutProject__description-text {
+        font-size: 12px;
+        line-height: 18px;
+        margin-top: 22px;
+    }
+
+    .aboutProject__section-brief {
+        min-width: 140px;
+    }
+
+    .aboutProject__section-long {
+        max-width: 528px;
+    }
+
+    .aboutProject__container-time {
+        margin-top: 93px;
+    }
+}
+
+@media screen and (max-width: 590px) {
+    .aboutProject__section {
+        padding: 70px 18px;
+    }
+
+    .aboutProject__container-description {
+        flex-direction: column;
+        margin-top: 60px;
+    }
+
+    .aboutProject__description {
+        margin: 0 0 56px;
+    }
+
+    .aboutProject__description:last-of-type {
+        margin: 0;
+    }
+
+    .aboutProject__description-title {
+        font-size: 18px;
+        line-height: 22px;
+    }
+
+    .aboutProject__description-text {
+        margin-top: 16px;
+        font-size: 11px;
+        line-height: 16px;
+    }
+
+    .aboutProject__container-time {
+        margin-top: 60px;
+    }
+
+    .aboutProject__section-brief {
+        min-width: 100px;
+    }
+
+    .aboutProject__time {
+        font-size: 11px;
+        line-height: 13px;
+    }
+
+    .aboutProject__app {
+        margin-top: 10px;
+        font-size: 11px;
+        line-height: 13px;
+    }
+}

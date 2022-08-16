@@ -2,7 +2,7 @@ import React from "react";
 
 function Techs(props) {
     return (
-        <section className='techs'>
+        <section className='techs' id='techsId'>
             <div className='techs__section'>
                 {props.children}
                 <div className='techs__container'>
