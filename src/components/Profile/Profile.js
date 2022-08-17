@@ -27,7 +27,7 @@ function Profile(props) {
     return (
         <div className='profile'>
             {props.children}
-            <div className='profile__container'>
+            <main className='profile__container'>
                 <h2 className='profile__title'>Привет, Виталий</h2>
                 <form className='profile__form'>
                     <div className='profile__container-input'>
@@ -75,7 +75,7 @@ function Profile(props) {
                     <NavLink to='/movies' className='profile__exit'>Выйти из аккаунта</NavLink>
                 </div>
 
-            </div>
+            </main>
         </div>
     )
 }

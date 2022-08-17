@@ -10,14 +10,11 @@
     text-align: center;
     color: #FFFFFF;
     cursor: pointer;
-    transition: opacity .3s ease .1s;
     padding: 0;
 }
 
 .submitButton:hover {
-    background: #F8F8F8;
-    border-radius: 6px;
-    color: #000000;
+    opacity: .8;
 }
 
 @media screen and (max-width: 550px) {

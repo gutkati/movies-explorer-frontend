@@ -8,6 +8,7 @@ import Profile from '../Profile/Profile.js';
 import Movies from '../Movies/Movies.js';
 
 import Main from "../Main/Main.js"
+import SavedMovies from "../SavedMovies/SavedMovies";
 
 function App() {
 
@@ -45,6 +46,12 @@ function App() {
                         <Header loggedIn={loggedIn}/>
 
                     </Movies>
+                </Route>
+
+                <Route>
+                    <SavedMovies>
+                        <Header loggedIn={loggedIn}/>
+                    </SavedMovies>
                 </Route>
 
             </switch>

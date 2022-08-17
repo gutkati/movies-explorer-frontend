@@ -3,7 +3,6 @@ import Header from '../Header/Header.js';
 import SearchForm from './SearchForm/SearchForm.js';
 import Preloader from './Preloader/Preloader.js';
 import MoviesCardList from './MoviesCardList/MoviesCardList.js';
-import MoviesCard from './MoviesCard/MoviesCard.js';
 import Footer from "../Footer/Footer";
 
 function Movies(props) {
@@ -12,9 +11,8 @@ function Movies(props) {
             {props.children}
             <div className='movies__container'>
                 <SearchForm />
-                {/*<Preloader />*/}
-                {/*<MoviesCardList />*/}
-                {/*<MoviesCard />*/}
+                <Preloader />
+                <MoviesCardList />
             </div>
              <Footer />
         </div>

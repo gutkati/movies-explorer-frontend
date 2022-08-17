@@ -11,6 +11,7 @@
 @import "components/Main/AboutMe/AboutMe.css";
 
 @import "components/Header/Header.css";
+@import "components/BurgerMenu/BurgerMenu.css";
 
 @import "components/Register/Register.css";
 
@@ -19,6 +20,8 @@
 @import "components/Movies/Movies.css";
 @import "components/Movies/SearchForm/SearchForm.css";
 @import "components/FilterCheckbox/FilterCheckbox.css";
+@import "components/Movies/MoviesCardList/MoviesCardList.css";
+@import "components/Movies/MoviesCard/MoviesCard.css";
 
 @import "components/Footer/Footer.css";
 
