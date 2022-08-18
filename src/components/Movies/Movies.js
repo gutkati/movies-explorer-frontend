@@ -9,11 +9,11 @@ function Movies(props) {
     return (
         <div className='movies'>
             {props.children}
-            <div className='movies__container'>
+
                 <SearchForm />
                 <Preloader />
                 <MoviesCardList />
-            </div>
+
              <Footer />
         </div>
     )

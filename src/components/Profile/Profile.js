@@ -28,7 +28,7 @@ function Profile(props) {
         <div className='profile'>
             {props.children}
             <main className='profile__container'>
-                <h2 className='profile__title'>Привет, Виталий</h2>
+                <h2 className='profile__title'>Привет, Виталий!</h2>
                 <form className='profile__form'>
                     <div className='profile__container-input'>
                         <label className='profile__label'>Имя</label>

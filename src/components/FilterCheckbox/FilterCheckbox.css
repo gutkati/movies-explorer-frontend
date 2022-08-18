@@ -1,8 +1,9 @@
-.filterCheckbox{
+.filterCheckbox {
     padding-top: 13px;
     text-align: center;
     height: 100%;
 }
+
 .filterCheckbox__container {
     display: inline-block;
     position: relative;
@@ -39,7 +40,7 @@
     width: 36px;
     height: 20px;
     background-color: #ffffff;
-    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.08) ;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.08);
     border-radius: 20px;
     display: inline-block;
     text-align: center;
@@ -58,4 +59,18 @@
     position: absolute;
     top: 2px;
     right: 3px;
+}
+
+@media screen and (max-width: 900px) {
+    .filterCheckbox {
+        padding: 0;
+        margin-bottom: 57px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .filterCheckbox__label {
+        font-size: 11px;
+        line-height: 18px;
+    }
 }
