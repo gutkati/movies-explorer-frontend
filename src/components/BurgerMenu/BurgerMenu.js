@@ -4,7 +4,7 @@ import HeaderAccount from "../../images/haeder-account.png";
 
 function BurgerMenu({isOpenBurgerMenu, closeBurgerMenu}) {
     return (
-        <div className={`burgerMenu ${ isOpenBurgerMenu ? 'burgerMenu__open' : ""}`}>
+        <div className={`burgerMenu ${isOpenBurgerMenu ? 'burgerMenu__open' : ""}`}>
             <nav className='burgerMenu__container'>
                 <button className="burgerMenu__btn-close" type='button' onClick={closeBurgerMenu}/>
                 <ul className='burgerMenu__list'>
@@ -12,13 +12,16 @@ function BurgerMenu({isOpenBurgerMenu, closeBurgerMenu}) {
                         <NavLink className='burgerMenu__link' to='/'>Главная</NavLink>
                     </li>
                     <li className='burgerMenu__item'>
-                        <NavLink className='burgerMenu__link' activeClassName='burgerMenu__link_active'
-                                 to='/movies'>Фильмы</NavLink>
+                        <NavLink to='/movies'
+                                 className='burgerMenu__link'
+                                 activeClassName='burgerMenu__item_active'
+                        >Фильмы</NavLink>
                     </li>
                     <li className='burgerMenu__item'>
-                        <NavLink className='burgerMenu__link'
-                                 activeClassName='burgerMenu__link_active'
-                                 to='/movies'>Сохраненные фильмы</NavLink>
+                        <NavLink to='/saved-movies'
+                                 className='burgerMenu__link'
+                                 activeClassName='burgerMenu__item_active'
+                        >Сохраненные фильмы</NavLink>
                     </li>
                 </ul>
                 <div className='burgerMenu__account'>

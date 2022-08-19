@@ -11,7 +11,7 @@ function SearchForm() {
                     <button className='searchForm__btn'
                             type='button'
                             aria-label='поиск'
-                    ><img src={Find} /></button>
+                    />
                 </form>
                 <FilterCheckbox/>
             </div>

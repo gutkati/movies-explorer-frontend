@@ -25,5 +25,7 @@
 
 @import "components/Footer/Footer.css";
 
+@import "components/NotFound/NotFound.css";
+
 @import "components/SectionWelcome/SectionWelcome.css";
 @import "components/SubmitBatton/SubmitButton.css";

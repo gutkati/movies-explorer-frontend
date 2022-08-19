@@ -1,6 +1,5 @@
 import React, {useState, useRef} from "react";
 import {NavLink} from "react-router-dom";
-import SubmitButton from "../SubmitBatton/SubmitButton";
 
 function Profile(props) {
     const disabled = false;
@@ -28,7 +27,7 @@ function Profile(props) {
         <div className='profile'>
             {props.children}
             <main className='profile__container'>
-                <h2 className='profile__title'>Привет, Виталий!</h2>
+                <h2 className='profile__title'>Привет, Екатерина!</h2>
                 <form className='profile__form'>
                     <div className='profile__container-input'>
                         <label className='profile__label'>Имя</label>

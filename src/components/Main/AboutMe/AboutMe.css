@@ -43,6 +43,13 @@
     margin: 0;
 }
 
+.aboutMe__photo {
+    border-radius: 10px;
+    width: 270px;
+    height: 327px;
+    object-fit: cover;
+}
+
 .aboutMe__social-list {
     display: flex;
     flex-direction: row;

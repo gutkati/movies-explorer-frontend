@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import film1 from '../../../images/film-1.png'
-import {CurrentUserContext} from "../../../contexts/curentUserContext.js";
+import {CurrentUserContext} from "../../../utils/contexts/curentUserContext.js";
 
 
 function MoviesCard({saved}) {

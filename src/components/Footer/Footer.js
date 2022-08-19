@@ -10,13 +10,13 @@ function Footer() {
                     <p className='footer__copyright'>© 2022</p>
                     <ul className='footer__social-list'>
                         <li className='footer__social-item'>
-                            <a className='footer__social-link' href='#'>Яндекс.Практикум</a>
+                            <a className='footer__social-link' href='https://practicum.yandex.ru' target='blank'>Яндекс.Практикум</a>
                         </li>
                         <li className='footer__social-item'>
-                            <a className='footer__social-link' href='#'>Github</a>
+                            <a className='footer__social-link' href='https://github.com' target='blank'>Github</a>
                         </li>
                         <li className='footer__social-item'>
-                            <a className='footer__social-link' href='#'>ВКонтакте</a>
+                            <a className='footer__social-link' href='https://vk.com' target='blank'>ВКонтакте</a>
                         </li>
                     </ul>
                 </div>

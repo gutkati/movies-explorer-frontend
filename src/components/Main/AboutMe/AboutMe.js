@@ -1,5 +1,5 @@
 import React from "react";
-import Photo from "../../../images/vitalii.png"
+import Photo from "../../../images/Katerina.JPG"
 import Arrow from "../../../images/arrow.png"
 
 function AboutMe(props) {
@@ -9,14 +9,12 @@ function AboutMe(props) {
                 {props.children}
                 <div className='aboutMe__container-profile'>
                     <div className='aboutMe__profile'>
-                        <h2 className='aboutMe__title'>Виталий</h2>
-                        <p className='aboutMe__subtitle'>Фронтенд-разработчик, 30 лет</p>
-                        <p className='aboutMe__info'>Я родился и живу в Саратове, закончил факультет экономики СГУ. У
-                            меня есть жена
-                            и дочь. Я люблю слушать музыку, а ещё увлекаюсь бегом. Недавно начал кодить. С 2015 года
-                            работал
-                            в компании «СКБ Контур». После того, как прошёл курс по веб-разработке, начал заниматься
-                            фриланс-заказами и ушёл с постоянной работы.</p>
+                        <h2 className='aboutMe__title'>Екатерина</h2>
+                        <p className='aboutMe__subtitle'>Фронтенд-разработчик, 34 года</p>
+                        <p className='aboutMe__info'>Я  живу в Ижевске, закончила факультет Реклама и Дизайн ИжГТУ. Во время обучения в институте
+                            я работала дизайнером штор, проработав 7 лет, решила кординально сменить профессию и пошла работать в военную
+                            приемку на завод. И вот я снова решила сменить профессию, теперь я обучаюсь на веб-разработчика. Я замужем
+                            и у меня есть сын. Меня очень привлекает творчество, люблю делать что то своими руками.</p>
                         <ul className='aboutMe__social-list'>
                             <li><a className='aboutMe__social-link' href='https://vk.com/katerinamalinka' target='blank'>ВКонтакте</a></li>
                             <li><a className='aboutMe__social-link' href='https://github.com/gutkati' target='blank'>Github</a></li>
