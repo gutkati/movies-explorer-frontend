@@ -10,7 +10,7 @@ import Header from "../Header/Header.js";
 
 function Main() {
     return(
-        <main className='main'>
+        <div className='main'>
             <Header />
             <Promo />
             <AboutProject>
@@ -23,7 +23,7 @@ function Main() {
                 <SectionTitle title={'Студент'} />
             </AboutMe>
             <Footer />
-        </main>
+        </div>
     )
 }
 

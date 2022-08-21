@@ -11,11 +11,11 @@ function SavedMovies(props) {
     return (
         <div className='movies'>
             {props.children}
-            <div className='movies__container'>
+            <main className='movies__container'>
                 <SearchForm/>
                 <MoviesCardList saved={saved}/>
                 <Preloader/>
-            </div>
+            </main>
             <Footer/>
         </div>
     )
