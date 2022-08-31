@@ -1,34 +1,60 @@
 import React, {useState} from "react";
-import film1 from '../../../images/film-1.png'
-import {CurrentUserContext} from "../../../contexts/curentUserContext.js";
+import {useLocation} from "react-router-dom"
 
+function MoviesCard(
+    {
+        saved = false,
+        card = {},
+        onClickSave = false,
+        onClickDelete = false,
+        savedMoviesPage = false,
 
-function MoviesCard({saved}) {
+    }) {
 
-    const currentUser = React.useContext(CurrentUserContext);
     const [isLiked, setIsLiked] = useState(false);
 
-    function handleCardLike() {
-        setIsLiked(true)
+    const {pathname} = useLocation();
+
+    function handleClickSave() {
+        onClickSave(card);
     }
 
-    const cardLikeButtonClassName = `moviesCard__like ${ isLiked ? "moviesCard__like-active" : ""} ${ saved ? "moviesCard__delete" : ""}`;
+    function handleClickDelete() {
+        onClickDelete(card);
+    }
+
+    function transferToHouse(duration) {
+        return `${Math.floor(duration / 60)}ч ${duration % 60}м`;
+    }
 
     return (
         <div className='moviesCard'>
             <div className='moviesCard__container'>
                 <div className='moviesCard__info'>
-                    <h3 className='moviesCard__title'>33 слова о дизайне</h3>
-                    <p className='moviesCard__time'>1ч 47м</p>
+                    <h3 className='moviesCard__title'>{card.nameRU}</h3>
+                    <p className='moviesCard__time'>{transferToHouse(card.duration)}</p>
                 </div>
-                <button
-                    className={cardLikeButtonClassName}
+                {!savedMoviesPage ? (
+                    <button
+                    className={saved ? "moviesCard__like-active" : "moviesCard__like"}
                     type='button'
                     aria-label='нравится'
-                    onClick={handleCardLike}
+                    onClick={saved ? handleClickDelete : handleClickSave}
                 />
+                ) : (
+                    <button
+                    className="moviesCard__delete"
+                    type='button'
+                    aria-label='нравится'
+                    onClick={handleClickDelete}
+                />)}
+
             </div>
-            <img className='moviesCard__image' src={film1} alt='Обложка фильма' />
+            <a className='moviesCard__image-link' href={card.trailerLink}>
+                <img className='moviesCard__image'
+                    src={`${saved ? card.image : `http://api.nomoreparties.co${card.image.formats.thumbnail.url}`}`}
+                    alt={card.nameRU}/>
+            </a>
         </div>
     )
 }

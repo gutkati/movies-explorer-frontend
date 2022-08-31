@@ -88,6 +88,11 @@
     color: #C2C2C2;
 }
 
+.profile__btn-save_disabled {
+    opacity: 1;
+    cursor: none;
+}
+
 .profile__btn-save_visible {
     display: block;
 }
@@ -123,6 +128,8 @@
     color: #FF004D;
     text-decoration: none;
     padding: 0;
+    border: none;
+    background-color: inherit;
 }
 
 .profile__exit:hover {

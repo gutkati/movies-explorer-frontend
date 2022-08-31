@@ -7,22 +7,23 @@
 
 .moviesCard__container {
     width: 100%;
-    height: 68px;
+    min-height: 68px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
 .moviesCard__info {
-    margin: 14px 26px 14px 14px;
-    width: 210px;
+    margin: 0 26px 0 14px;
+    max-width: 300px;
 }
 
 .moviesCard__title {
+    height: 36px;
     font-weight: 500;
     font-size: 15px;
     line-height: 18px;
-    margin: 0 0 9px;
+    margin: 14px 0 0;
 }
 
 .moviesCard__time {
@@ -53,13 +54,18 @@
     background-image: url("../../../images/like-active.svg");
 }
 
+.moviesCard__image {
+    width: 364px;
+    height: 203px;
+}
+
 .moviesCard__delete {
     background-image: url("../../../images/card-delete.svg");
 }
 
 @media screen and (max-width: 900px) {
     .moviesCard {
-        max-width: 339px;
+        width: 339px;
         height: 258px;
     }
 

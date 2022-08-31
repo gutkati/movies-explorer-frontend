@@ -29,3 +29,5 @@
 
 @import "components/SectionWelcome/SectionWelcome.css";
 @import "components/SubmitBatton/SubmitButton.css";
+
+@import "components/InfoTooltip/InfoTooltip.css";
