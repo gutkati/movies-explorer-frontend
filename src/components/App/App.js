@@ -28,17 +28,17 @@ function App() {
     const [isSymbol, setIsSymbol] = useState(false);
 
 
-    useEffect(() => {
-        if (authorized) {
-            moviesApi
-                .getBeatFilm()
-                .then((cards) => {
-                    console.log(cards)
-                })
-        }
-        checkToken()
-        setAuthorized(true);
-    }, [authorized]);
+    // useEffect(() => {
+    //     if (authorized) {
+    //         moviesApi
+    //             .getBeatFilm()
+    //             .then((cards) => {
+    //                 console.log(cards)
+    //             })
+    //     }
+    //     checkToken()
+    //     setAuthorized(true);
+    // }, [authorized]);
 
     useEffect(() => {
         if (authorized) {
@@ -55,44 +55,47 @@ function App() {
     }, [authorized])
 
     useEffect(() => {
-            mainApi
-                .getUserData()
-                .then((data) => {
-                    console.log(data)
+        mainApi
+            .getUserData()
+            .then((data) => {
+                console.log(data)
                 if (data) {
                     setAuthorized(true)
                     setCurrentUser(data);
                 }
             })
-                .catch((err) => {
-                    console.log(err)
-                })
+            .catch((err) => {
+                console.log(err)
+            })
 
     }, [history])
 
     function checkToken() {
-        const jwt = localStorage.getItem("jwt")
-        console.log("jwt", jwt)
-        if (jwt) {
-            mainApi
-                .getUserData()
-                .then((res) => {
-                    if (res) {
-                        setCurrentUser(res);
-                        setAuthorized(true);
-                        history.push("/movies");
-                    } else {
-                        setAuthorized(false);
-                        setCurrentUser({});
-                        history.push("/");
-                    }
-                })
-                .catch((err) => {
-                    if (err === 401) {
-                        console.log("401 - Токен не передан или передан не в том формате")
-                    }
-                    console.log("401 - Переданный токен не корректен")
-                })
+        if (localStorage.getItem('jwt')) {
+            const jwt = localStorage.getItem("jwt")
+            console.log("jwt", jwt)
+            if (jwt) {
+                mainApi
+                    .getUserData(jwt)
+                    .then((res) => {
+                        if (res) {
+                            setCurrentUser(res);
+                            setAuthorized(true);
+                            history.push("/movies");
+                        } else {
+                            setAuthorized(false);
+                            setCurrentUser({});
+                            history.push("/");
+                        }
+                    })
+                    .catch((err) => {
+                        if (err === 401) {
+                            console.log("401 - Токен не передан или передан не в том формате")
+                        }
+                        console.log("401 - Переданный токен не корректен")
+
+                    })
+            }
         }
     }
 
@@ -120,11 +123,11 @@ function App() {
     function handleLogin(email, password) {
         mainApi
             .login(email, password)
-            .then((res) => {
-                if (res) {
-                    handlePageLogin(res);
+            .then((data) => {
+                    localStorage.setItem('jwt', data.token)
+                    handlePageLogin(data.user);
                     history.push("/movies")
-                }
+
             })
             .catch((err) => {
                 if (err === 400) {
@@ -166,9 +169,9 @@ function App() {
             .catch((err) => console.log(err));
     }
 
-    // useEffect(() => {
-    //     checkToken()
-    // })
+// useEffect(() => {
+//     checkToken()
+// })
 
     function closeInfoTooltip() {
         setInfoTooltipOpen(false)
@@ -177,16 +180,16 @@ function App() {
 
 // раздел с фильмами
 
-    // useEffect(() => {
-    //     if (authorized) {
-    //         moviesApi
-    //             .getBeatFilm()
-    //             .then((cards) => {
-    //                 console.log(cards)
-    //                 setFilteredCards(cards);
-    //             })
-    //     }
-    // }, [authorized]);
+// useEffect(() => {
+//     if (authorized) {
+//         moviesApi
+//             .getBeatFilm()
+//             .then((cards) => {
+//                 console.log(cards)
+//                 setFilteredCards(cards);
+//             })
+//     }
+// }, [authorized]);
 
     function handleSaveMovie(movie) {
         mainApi
@@ -224,18 +227,18 @@ function App() {
             .catch((err) => console.log(err));
     }
 
-    // useEffect(() => {
-    //     if (authorized) {
-    //         mainApi
-    //             .getMovie()
-    //             .then((movies) => {
-    //                 setSavedCards(movies)
-    //             })
-    //             .catch((err) => {
-    //                 console.log(err)
-    //             })
-    //     }
-    // }, [authorized])
+// useEffect(() => {
+//     if (authorized) {
+//         mainApi
+//             .getMovie()
+//             .then((movies) => {
+//                 setSavedCards(movies)
+//             })
+//             .catch((err) => {
+//                 console.log(err)
+//             })
+//     }
+// }, [authorized])
 
 
     return (

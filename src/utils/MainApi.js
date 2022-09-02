@@ -44,26 +44,26 @@ class MainApi {
         }).then((res) => this._checkResponse(res));
     }
 
-  //    getUserData(jwt) {
-  //   return fetch(`${this._baseUrl}/users/me`, {
-  //     method: "GET",
-  //     headers: {
-  //       authorization: `Bearer ${localStorage.getItem('jwt')}`,
-  //       "Content-Type": "application/json",
-  //     },
-  //   }).then((res) => this._checkResponse(res));
-  // }
+     getUserData(jwt) {
+    return fetch(`${this._baseUrl}/users/me`, {
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('jwt')}`,
+        "Content-Type": "application/json",
+      },
+    }).then((res) => this._checkResponse(res));
+  }
 
-    getUserData(jwt) {
-        return fetch(`${this._baseUrl}/users/me`, {
-            method: "GET",
-            credentials: 'include',
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${jwt}`,
-            },
-        }).then((res) => this._checkResponse(res));
-    }
+    // getUserData(jwt) {
+    //     return fetch(`${this._baseUrl}/users/me`, {
+    //         method: "GET",
+    //         credentials: 'include',
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //             Authorization: `Bearer ${jwt}`,
+    //         },
+    //     }).then((res) => this._checkResponse(res));
+    // }
 
     // getUserData() {
     //     return fetch(`${this._baseUrl}/users/me`, {
