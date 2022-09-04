@@ -44,15 +44,15 @@ class MainApi {
         }).then((res) => this._checkResponse(res));
     }
 
-     getUserData(jwt) {
-    return fetch(`${this._baseUrl}/users/me`, {
-      method: "GET",
-      headers: {
-        authorization: `Bearer ${localStorage.getItem('jwt')}`,
-        "Content-Type": "application/json",
-      },
-    }).then((res) => this._checkResponse(res));
-  }
+    getUserData(jwt) {
+        return fetch(`${this._baseUrl}/users/me`, {
+            method: "GET",
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('jwt')}`,
+                "Content-Type": "application/json",
+            },
+        }).then((res) => this._checkResponse(res));
+    }
 
     // getUserData(jwt) {
     //     return fetch(`${this._baseUrl}/users/me`, {
@@ -76,7 +76,10 @@ class MainApi {
         return fetch(`${this._baseUrl}/users/me`, {
             method: "PATCH",                 //метод изменяет существующие данные на сервере
             credentials: 'include',
-            headers: this._headers,
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('jwt')}`,
+                "Content-Type": "application/json",
+            },
             body: JSON.stringify({     //делает из объекта строку
                 name: name,
                 email: email,
@@ -86,36 +89,46 @@ class MainApi {
 
     getMovie() {
         return fetch(`${this._baseUrl}/movies`, {
-            headers: this._headers,
+            method: "GET",
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('jwt')}`,
+                "Content-Type": "application/json",
+            },
         })
             .then(this._checkResponse) //если сервер ответил успешно(ok) создаем из ответа объект, если нет то появляется ошибка
     }
 
-    saveMovie(card) {
+    saveMovie(movie) {
         return fetch(`${this._baseUrl}/movies`, {
             method: "POST",                 //метод изменяет существующие данные на сервере
-            headers: this._headers,
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('jwt')}`,
+                "Content-Type": "application/json",
+            },
             body: JSON.stringify({     //делает из объекта строку
-                country: card.country,
-                director: card.director,
-                duration: card.duration,
-                year: card.year,
-                description: card.description,
-                image: `https://api.nomoreparties.co/${card.image.url}`,
-                trailerLink: card.trailerLink,
-                nameRu: card.nameRu,
-                nameEN: card.nameEN,
-                thumbnail: `https://api.nomoreparties.co/${card.image.formats.thumbnail.url}`,
-                movieId: card.id,
+                country: movie.country,
+                director: movie.director,
+                duration: movie.duration,
+                year: movie.year,
+                description: movie.description,
+                image: `https://api.nomoreparties.co/${movie.image.url}`,
+                trailerLink: movie.trailerLink,
+                nameRu: movie.nameRu,
+                nameEN: movie.nameEN,
+                thumbnail: `https://api.nomoreparties.co/${movie.image.formats.thumbnail.url}`,
+                movieId: movie.id,
             }),
         })
             .then(this._checkResponse)
     }
 
-    deleteMovie(id) {
-        return fetch(`${this._baseUrl}/cards/${id}`, {
+    deleteMovie(movieId) {
+        return fetch(`${this._baseUrl}/cards/${movieId}`, {
             method: "DELETE",
-            headers: this._headers,
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('jwt')}`,
+                "Content-Type": "application/json",
+            },
         })
             .then(this._checkResponse)
     }

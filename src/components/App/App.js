@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {Route, Switch, useHistory, useLocation} from 'react-router-dom';
+import {Route, Switch, useHistory, useLocation, useNavigate} from 'react-router-dom';
 import {CurrentUserContext} from '../../contexts/curentUserContext'
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import Header from '../Header/Header.js';
@@ -18,7 +18,6 @@ import InfoTooltip from "../InfoTooltip/InfoTooltip.js"
 
 function App() {
     const loggedIn = true;
-
     const history = useHistory();
     const [authorized, setAuthorized] = useState(false);
     const [savedCards, setSavedCards] = useState([]);
@@ -51,23 +50,24 @@ function App() {
                     console.log(err)
                 })
         }
-        checkToken()
+       // checkToken()
     }, [authorized])
 
     useEffect(() => {
-        mainApi
-            .getUserData()
-            .then((data) => {
-                console.log(data)
-                if (data) {
-                    setAuthorized(true)
-                    setCurrentUser(data);
-                }
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-
+        const jwt = localStorage.getItem('jwt')
+        if (jwt) {
+            mainApi
+                .getUserData()
+                .then((data) => {
+                    console.log(data)
+                    if (data) {
+                        setAuthorized(true)
+                    }
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+        }
     }, [history])
 
     function checkToken() {
@@ -82,10 +82,6 @@ function App() {
                             setCurrentUser(res);
                             setAuthorized(true);
                             history.push("/movies");
-                        } else {
-                            setAuthorized(false);
-                            setCurrentUser({});
-                            history.push("/");
                         }
                     })
                     .catch((err) => {
@@ -111,12 +107,13 @@ function App() {
                 }
             })
             .catch((err) => {
-                if (err === 400) {
-                    console.log("400 - некорректно заполнено одно из полей");
-                }
                 setInfoTooltipOpen(true)
                 setIsSymbol(false)
                 setMessage("Что-то пошло не так! Попробуйте ещё раз.");
+                // if (err === 400) {
+                //     console.log("400 - некорректно заполнено одно из полей");
+                // }
+
             })
     }
 
@@ -124,38 +121,51 @@ function App() {
         mainApi
             .login(email, password)
             .then((data) => {
+                if (data.token) {
                     localStorage.setItem('jwt', data.token)
-                    handlePageLogin(data.user);
+                    handlePageLogin();
                     history.push("/movies")
+                }
 
             })
             .catch((err) => {
+                setInfoTooltipOpen(true)
+                setIsSymbol(false)
+                setMessage("Что-то пошло не так! Попробуйте ещё раз.");
                 if (err === 400) {
                     console.log("400 - не передано одно из полей")
                 } else if (err === 401) {
                     console.log("401 - пользователь с email не найден")
                 }
-                setInfoTooltipOpen(true)
-                setIsSymbol(false)
-                setMessage("Что-то пошло не так! Попробуйте ещё раз.");
+
             })
     }
 
-    function handlePageLogin(user) {
+    function handlePageLogin() {
         setAuthorized(true);
-        setCurrentUser(user);
         checkToken();
     }
 
+
     function handleLogout() {
-        mainApi
-            .logout()
-            .then((res) => console.log(res))
-            .catch(err => console.log(err))
         setAuthorized(false)
-        localStorage.removeItem("jwt")
-        history.push("/")
+        localStorage.removeItem('jwt')
+        setCurrentUser({})
+        history.push('/')
     }
+
+    // function handleLogout() {
+    //     mainApi
+    //         .logout()
+    //         .then((res) => {
+    //             setAuthorized(false)
+    //             setCurrentUser({})
+    //             localStorage.removeItem("jwt")
+    //             history.push("/")
+    //         })
+    //         .catch(err => console.log(err))
+    //
+    // }
 
     function handleEditProfile(name, email) {
         mainApi
@@ -227,18 +237,19 @@ function App() {
             .catch((err) => console.log(err));
     }
 
-// useEffect(() => {
-//     if (authorized) {
-//         mainApi
-//             .getMovie()
-//             .then((movies) => {
-//                 setSavedCards(movies)
-//             })
-//             .catch((err) => {
-//                 console.log(err)
-//             })
-//     }
-// }, [authorized])
+
+    useEffect(() => {
+        if (authorized) {
+            mainApi
+                .getMovie()
+                .then((movies) => {
+                    setSavedCards(movies)
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+        }
+    }, [authorized])
 
 
     return (
@@ -260,10 +271,8 @@ function App() {
                             <SectionWelcome title={'Рады видеть!'}/>
                         </Login>
                     </Route>
-                    <ProtectedRoute
-                        path='/profile'
-                        authorized={authorized}
-                    >
+
+                    <ProtectedRoute path='/profile' authorized={authorized}>
                         <Profile
                             editProfile={handleEditProfile}
                             logout={handleLogout}
@@ -272,7 +281,7 @@ function App() {
                         </Profile>
                     </ProtectedRoute>
 
-                    <ProtectedRoute path='/movies'>
+                    <ProtectedRoute path='/movies' authorized={authorized}>
                         <Header loggedIn={loggedIn}/>
                         <Movies
                             user={currentUser}
@@ -283,7 +292,7 @@ function App() {
                         <Footer/>
                     </ProtectedRoute>
 
-                    <ProtectedRoute path='/saved-movies'>
+                    <ProtectedRoute path='/saved-movies' authorized={authorized}>
                         <Header loggedIn={loggedIn}/>
                         <SavedMovies
                             user={currentUser}

@@ -9,15 +9,15 @@
     align-items: center;
     display: flex;
     visibility: hidden;
-    opacity: 0;
+    /*opacity: 1;*/
     transition: visibility 0s, opacity 0.5s linear, .5s;
 }
 
 .popup_opened {
     visibility: visible;
-    opacity: 1;
+    /*opacity: 1;*/
     transition: visibility 0s, opacity 0.5s linear, .5s;
-    z-index: 1;
+    z-index: 10;
 }
 
 .popup__modal {

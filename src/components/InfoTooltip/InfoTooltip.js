@@ -2,7 +2,7 @@ import React from "react";
 import imageYes from "../../images/yes.svg"
 import imagesNo from "../../images/no.svg"
 
-export default function InfoTooltip(props) {
+function InfoTooltip(props) {
     return (
         <div className={`popup ${props.isOpen ? 'popup_opened' : ''}`}>
             <div className="popup__modal">
@@ -17,3 +17,5 @@ export default function InfoTooltip(props) {
         </div>
     )
 }
+
+export default InfoTooltip;

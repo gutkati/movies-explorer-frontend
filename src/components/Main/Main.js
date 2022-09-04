@@ -7,6 +7,7 @@ import Techs from "./Techs/Techs.js";
 import AboutMe from "./AboutMe/AboutMe.js";
 import Footer from "../Footer/Footer.js";
 import Header from "../Header/Header.js";
+import InfoTooltip from "../InfoTooltip/InfoTooltip.js";
 
 function Main() {
     return(
@@ -23,6 +24,7 @@ function Main() {
                 <SectionTitle title={'Студент'} />
             </AboutMe>
             <Footer />
+
         </div>
     )
 }
