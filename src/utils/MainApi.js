@@ -36,13 +36,13 @@ class MainApi {
         }).then((res) => this._checkResponse(res));
     }
 
-    logout() {
-        return fetch(`${this._baseUrl}/logout`, {
-            credentials: 'include',
-            headers: this._headers,
-
-        }).then((res) => this._checkResponse(res));
-    }
+    // logout() {
+    //     return fetch(`${this._baseUrl}/logout`, {
+    //         credentials: 'include',
+    //         headers: this._headers,
+    //
+    //     }).then((res) => this._checkResponse(res));
+    // }
 
     getUserData(jwt) {
         return fetch(`${this._baseUrl}/users/me`, {

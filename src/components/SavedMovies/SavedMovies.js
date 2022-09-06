@@ -3,12 +3,14 @@ import SearchForm from "../Movies/SearchForm/SearchForm.js";
 import Preloader from "../Movies/Preloader/Preloader.js";
 import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList.js";
 import Footer from "../Footer/Footer.js";
+import Header from "../Header/Header";
 
 function SavedMovies(
     {
         user = {},
         onClickDelete = false,
         savedMoviesList = [],
+        loggedIn
     }) {
 
     const [inputValue, setInputValue] = React.useState(false);
@@ -83,29 +85,30 @@ function SavedMovies(
         }
     }, [savedMoviesList])
 
-
-    // const saved = true;
-
     return (
-        <main className='movies'>
-            <div className='movies__container'>
-                <SearchForm
-                    handleSearchSubmit={handleSearchSubmit}
-                    checkBoxClick={handleShortFilms}
-                    shortMovies={shortMovies}
-                    inputValue={inputValue}
-                />
-                <MoviesCardList
-                    nothingFound={nothingFound}
-                    moviesList={showedMovies}
-                    onClickDelete={onClickDelete}
-                    onSaveClick={false}
-                    savedMoviesPage={true}
-                    savedMovies={savedMoviesList}
-                />
-                {/*<Preloader/>*/}
-            </div>
-        </main>
+        <>
+            <Header loggedIn={loggedIn}/>
+            <main className='movies'>
+                <div className='movies__container'>
+                    <SearchForm
+                        handleSearchSubmit={handleSearchSubmit}
+                        checkBoxClick={handleShortFilms}
+                        shortMovies={shortMovies}
+                        inputValue={inputValue}
+                    />
+                    <MoviesCardList
+                        nothingFound={nothingFound}
+                        moviesList={showedMovies}
+                        onClickDelete={onClickDelete}
+                        onSaveClick={false}
+                        savedMoviesPage={true}
+                        savedMovies={savedMoviesList}
+                    />
+                    {/*<Preloader/>*/}
+                </div>
+            </main>
+            <Footer/>
+        </>
     )
 }
 

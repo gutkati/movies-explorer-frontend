@@ -4,6 +4,8 @@ import Preloader from './Preloader/Preloader.js';
 import MoviesCardList from './MoviesCardList/MoviesCardList.js';
 import {moviesApi} from '../../utils/MoviesApi.js';
 import {CurrentUserContext} from '../../contexts/curentUserContext'
+import Footer from "../Footer/Footer";
+import Header from "../Header/Header";
 
 function Movies(
     {
@@ -11,6 +13,7 @@ function Movies(
         onClickSave = false,
         onClickDelete = false,
         savedMoviesList = [],
+        loggedIn
     }) {
     const currentUser = React.useContext(CurrentUserContext)
     console.log(currentUser)
@@ -116,32 +119,36 @@ function Movies(
     }, [user]);
 
     return (
-        <main className='movies'>
-            <SearchForm
-                handleSearchSubmit={handleSearchSubmit}
-                checkBoxClick={handleShortFilms}
-                inputValue={inputValue}
-                shortMovies={shortMovies}
-            />
-            {isDataLoading ? <Preloader/> :
-                <>
-                    {isError ?
-                        <span id='movies__error' className="movies__error">Во время запроса произошла ошибка. Возможно,
+        <>
+            <Header loggedIn={loggedIn}/>
+            <main className='movies'>
+                <SearchForm
+                    handleSearchSubmit={handleSearchSubmit}
+                    checkBoxClick={handleShortFilms}
+                    inputValue={inputValue}
+                    shortMovies={shortMovies}
+                />
+                {isDataLoading ? <Preloader/> :
+                    <>
+                        {isError ?
+                            <span id='movies__error' className="movies__error">Во время запроса произошла ошибка. Возможно,
                     проблема с соединением или сервер не доступен. Подождите немного и попробуйте еще раз </span> :
-                        <>
-                            <MoviesCardList
-                                moviesList={filteredMovies}
-                                nothingFound={nothingFound}
-                                onClickSave={onClickSave}
-                                onClickDelete={onClickDelete}
-                                savedMoviesList={savedMoviesList}
-                                savedMoviesPage={false}
-                            />
-                        </>
-                    }
-                </>
-            }
-        </main>
+                            <>
+                                <MoviesCardList
+                                    moviesList={filteredMovies}
+                                    nothingFound={nothingFound}
+                                    onClickSave={onClickSave}
+                                    onClickDelete={onClickDelete}
+                                    savedMoviesList={savedMoviesList}
+                                    savedMoviesPage={false}
+                                />
+                            </>
+                        }
+                    </>
+                }
+            </main>
+            <Footer/>
+        </>
     )
 }
 

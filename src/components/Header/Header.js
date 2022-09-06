@@ -36,12 +36,12 @@ function Header({loggedIn}) {
                 <nav className={`header__menu ${loggedIn ? 'header__menu_visible' : ""}`}>
                     <ul className='header__list'>
                         <li className='header__list-item'>
-                            <NavLink to='/movies' className='header__list-link' activeClassName='header__list-item_active'>
+                            <NavLink to='/movies' className='header__list-link' activeclassname='header__list-item_active'>
                                 Фильмы
                             </NavLink>
                         </li>
                         <li className='header__list-item'>
-                            <NavLink to='/saved-movies' className='header__list-link' activeClassName='header__list-item_active'>
+                            <NavLink to='/saved-movies' className='header__list-link' activeclassname='header__list-item_active'>
                                 Сохранённые фильмы
                             </NavLink>
                         </li>

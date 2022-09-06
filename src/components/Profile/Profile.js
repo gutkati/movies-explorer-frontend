@@ -1,5 +1,6 @@
 import React, {useState, useRef, useContext, useEffect} from "react";
 import {CurrentUserContext} from '../../contexts/curentUserContext'
+import Header from "../Header/Header";
 
 function Profile(props) {
 
@@ -71,59 +72,61 @@ function Profile(props) {
     }, [currentUser])
 
     return (
-        <div className='profile'>
-            {props.children}
-            <main className='profile__container'>
-                <h2 className='profile__title'>Привет, {name}!</h2>
-                <form className='profile__form' onSubmit={handleSubmit}>
-                    <div className='profile__container-input'>
-                        <label className='profile__label'>Имя</label>
-                        <input className='profile__input'
-                               id='name'
-                               value={name || ""}
-                               minLength="2"
-                               maxLength="100"
-                               onChange={handleChangeName}
-                               disabled
-                               ref={nameInput}
-                        />
+        <>
+            <Header loggedIn={props.loggedIn}/>
+            <div className='profile'>
+                <main className='profile__container'>
+                    <h2 className='profile__title'>Привет, {name}!</h2>
+                    <form className='profile__form' onSubmit={handleSubmit}>
+                        <div className='profile__container-input'>
+                            <label className='profile__label'>Имя</label>
+                            <input className='profile__input'
+                                   id='name'
+                                   value={name || ""}
+                                   minLength="2"
+                                   maxLength="100"
+                                   onChange={handleChangeName}
+                                   disabled
+                                   ref={nameInput}
+                            />
 
-                    </div>
-                    <div className='profile__border'/>
-                    <div className='profile__container-input'>
-                        <label className='profile__label'>E-mail</label>
-                        <input
-                            className='profile__input'
-                            id='email'
-                            value={email || ""}
-                            type='email'
-                            minLength="2"
-                            maxLength="100"
-                            onChange={handleChangeEmail}
-                            disabled
-                            ref={emailInput}
-                        />
-                    </div>
-                    <div className='profile__container-submit'>
-                        {/*<span className={`profile__errorMessage ${disabled ? 'profile__errorMessage_visible' : ""}`}>*/}
-                        {/*    При обновлении профиля произошла ошибка*/}
-                        {/*</span>*/}
-                        <button
-                            type='submit'
-                            className={`profile__btn-save ${!activeButton ? 'profile__btn-save_disabled' : ""} ${activeButton ? 'profile__btn-save_visible' : ""}`}>
-                            Сохранить
+                        </div>
+                        <div className='profile__border'/>
+                        <div className='profile__container-input'>
+                            <label className='profile__label'>E-mail</label>
+                            <input
+                                className='profile__input'
+                                id='email'
+                                value={email || ""}
+                                type='email'
+                                minLength="2"
+                                maxLength="100"
+                                onChange={handleChangeEmail}
+                                disabled
+                                ref={emailInput}
+                            />
+                        </div>
+                        <div className='profile__container-submit'>
+                            {/*<span className={`profile__errorMessage ${disabled ? 'profile__errorMessage_visible' : ""}`}>*/}
+                            {/*    При обновлении профиля произошла ошибка*/}
+                            {/*</span>*/}
+                            <button
+                                type='submit'
+                                className={`profile__btn-save ${!activeButton ? 'profile__btn-save_disabled' : ""} ${activeButton ? 'profile__btn-save_visible' : ""}`}>
+                                Сохранить
+                            </button>
+                        </div>
+                    </form>
+                    <div className={`profile__edit-exit ${activeButton ? 'profile__edit-exit_hidden' : ""}`}>
+                        <button className='profile__edit' type='button' onClick={isEditProfile}>
+                            Редактировать
+                        </button>
+                        <button className='profile__exit' type='button' onClick={props.logout}>Выйти из аккаунта
                         </button>
                     </div>
-                </form>
-                <div className={`profile__edit-exit ${activeButton ? 'profile__edit-exit_hidden' : ""}`}>
-                    <button className='profile__edit' type='button' onClick={isEditProfile}>
-                        Редактировать
-                    </button>
-                    <button className='profile__exit' type='button' onClick={props.logout}>Выйти из аккаунта</button>
-                </div>
-
-            </main>
-        </div>
+                </main>
+            </div>
+        </>
     )
 
 

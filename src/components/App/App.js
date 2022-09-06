@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {Route, Routes, Switch, useHistory, useLocation, useNavigate} from 'react-router-dom';
+import {Route, Routes, Switch, useLocation, useNavigate} from 'react-router-dom';
 import {CurrentUserContext} from '../../contexts/curentUserContext'
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import Header from '../Header/Header.js';
@@ -18,13 +18,14 @@ import InfoTooltip from "../InfoTooltip/InfoTooltip.js"
 
 function App() {
     const loggedIn = true;
-    const history = useHistory();
-    const [authorized, setAuthorized] = useState(false);
+    const [authorized, setAuthorized] = useState(undefined);
     const [savedMoviesList, setSavedMoviesList] = useState([]);
     const [currentUser, setCurrentUser] = useState({});
     const [message, setMessage] = useState("");
     const [infoTooltipOpen, setInfoTooltipOpen] = useState(false);
     const [isSymbol, setIsSymbol] = useState(false);
+    const navigate = useNavigate();
+    const location = useLocation();
 
 
     // useEffect(() => {
@@ -68,7 +69,7 @@ function App() {
                     console.log(err)
                 })
         }
-    }, [history])
+    }, [navigate])
 
     function handleRegister(name, email, password) {
         mainApi
@@ -79,7 +80,7 @@ function App() {
                     setInfoTooltipOpen(true)
                     setIsSymbol(true)
                     setMessage("Вы успешно зарегестрировались");
-                    history.push('/signin')
+                    navigate('/signin')
                 }
             })
             .catch((err) => {
@@ -100,7 +101,7 @@ function App() {
                 if (data.token) {
                     localStorage.setItem("jwt", data.token)
                     handlePageLogin();
-                    history.push("/movies")
+                    navigate("/movies")
                 }
 
             })
@@ -132,7 +133,7 @@ function App() {
                     .then((data) => {
                         if (data) {
                             setAuthorized(true);
-                            history.push("/movies");
+                            navigate("/movies");
                             setCurrentUser(data);
                         }
                     })
@@ -152,7 +153,7 @@ function App() {
         setCurrentUser({})
         setAuthorized(false)
         localStorage.removeItem("jwt")
-        history.push('/')
+        navigate('/')
     }
 
     // function handleLogout() {
@@ -256,70 +257,76 @@ function App() {
     return (
         <CurrentUserContext.Provider value={currentUser}>
             <div className='page'>
-                <Route>
-                    <Route exact path='/'>
-                        <Main/>
-                    </Route>
-
-                    <Route path='/signup'>
-                        <Register register={handleRegister}>
-                            <SectionWelcome title={'Добро пожаловать!'}/>
-                        </Register>
-                    </Route>
-
-                    <Route path='/signin'>
-                        <Login login={handleLogin}>
-                            <SectionWelcome title={'Рады видеть!'}/>
-                        </Login>
-                    </Route>
-
-                    <Route path='*'>
-                        <NotFound/>
-                    </Route>
-
-                    <Route element={<ProtectedRoute authorized={authorized} redirectPath='/'/>}>
-                        <Route path='/profile'>
-                            <Profile
-                                editProfile={handleEditProfile}
-                                logout={handleLogout}
-                            >
-                                <Header loggedIn={loggedIn}/>
-                            </Profile>
-                        </Route>
-
-                        <Route path='/movies'>
-                            <Header loggedIn={loggedIn}/>
-                            <Movies
-                                user={currentUser}
-                                savedMoviesList={savedMoviesList}
-                                onClickSave={handleSaveMovie}
-                                onClickDelete={handleDeleteMovie}
-                            />
-                            <Footer/>
-                        </Route>
-
-                        <Route path='/saved-movies'>
-                            <Header loggedIn={loggedIn}/>
-                            <SavedMovies
-                                authorized={authorized}
-                                user={currentUser}
-                                savedMoviesList={savedMoviesList}
-                                onClickDelete={handleDeleteMovie}
-                            />
-                            <Footer/>
-                        </Route>
-
-                    </Route>
-
-                    <InfoTooltip
-                        isOpen={infoTooltipOpen}
-                        onClose={closeInfoTooltip}
-                        message={message}
-                        symbol={isSymbol}
+                <Routes>
+                    <Route
+                        exact path='/'
+                        element={<Main/>}
                     />
 
-                </Route>
+                    <Route path='/signup'
+                           element={
+                               <Register
+                                   register={handleRegister}>
+                                   <SectionWelcome title={'Добро пожаловать!'}/>
+                               </Register>
+                           }
+                    />
 
+                    <Route path='/signin'
+                           element={
+                               <Login
+                                   login={handleLogin}>
+                                   <SectionWelcome title={'Рады видеть!'}/>
+                               </Login>
+                           }
+                    />
+
+                    <Route path='*'
+                           element={<NotFound/>}
+                    />
+
+                    <Route element={<ProtectedRoute authorized={authorized} redirectPath='/'/>}>
+                        <Route path='/profile'
+                               element={
+                                   <Profile
+                                       editProfile={handleEditProfile}
+                                       logout={handleLogout}
+                                       loggedIn={loggedIn}
+                                   />
+                               }
+                        />
+
+                        <Route path='/movies'
+                               element={
+                                   <Movies
+                                       user={currentUser}
+                                       savedMoviesList={savedMoviesList}
+                                       onClickSave={handleSaveMovie}
+                                       onClickDelete={handleDeleteMovie}
+                                       loggedIn={loggedIn}
+                                   />}
+
+                        />
+
+                        <Route path='/saved-movies'
+                               element={
+                                   <SavedMovies
+                                       loggedIn={loggedIn}
+                                       authorized={authorized}
+                                       user={currentUser}
+                                       savedMoviesList={savedMoviesList}
+                                       onClickDelete={handleDeleteMovie}
+                                   />}
+                        />
+
+                    </Route>
+                </Routes>
+                <InfoTooltip
+                    isOpen={infoTooltipOpen}
+                    onClose={closeInfoTooltip}
+                    message={message}
+                    symbol={isSymbol}
+                />
             </div>
         </CurrentUserContext.Provider>
     )

@@ -93,35 +93,36 @@ function MoviesCardList(
     return (
         <div className='moviesCardList'>
             <div className='moviesCardList__container'>
-                {nothingFound ? (
-                    <p className='moviesCardList__notFound'>Ничего не найдено</p>
-                ) : (
                 <>
-                    <div className='moviesCardList__cards'>
-                        {
-                            movieList.map((movie) => (
-                                <MoviesCard
-                                    saved={getSavedMovieCard(savedMoviesList, movie)}
-                                    movie={movie}
-                                    key={movie.id || movie._id}
-                                    onClickSave={onClickSave}
-                                    onClickDelete={onClickDelete}
-                                    savedMoviesPage={savedMoviesPage}
-                                />
-                            ))
-                        }
-                    </div>
-                {movieList.length >= 5 && movieList.length < movieList.length ? (
-                    <button onClick={handleClickElse}
-                    className='moviesCardList__btn'>
-                    Ещё
-                    </button>
-                    ) : ("")
-                }
-                </>
+                    {nothingFound ? (
+                        <p className='moviesCardList__notFound'>Ничего не найдено</p>
+                    ) : (
+                        <>
+                            <div className='moviesCardList__cards'>
+                                {
+                                    movieList.map((movie) => (
+                                        <MoviesCard
+                                            saved={getSavedMovieCard(savedMoviesList, movie)}
+                                            movie={movie}
+                                            key={movie.id || movie._id}
+                                            onClickSave={onClickSave}
+                                            onClickDelete={onClickDelete}
+                                            savedMoviesPage={savedMoviesPage}
+                                        />
+                                    ))
+                                }
+                            </div>
+                            {movieList.length >= 5 && movieList.length < movieList.length ? (
+                                <button onClick={handleClickElse}
+                                        className='moviesCardList__btn'>
+                                    Ещё
+                                </button>
+                            ) : ("")
+                            }
+                        </>
                     )}
 
-
+                </>
             </div>
         </div>
     )
