@@ -3,10 +3,10 @@ import FilterCheckbox from "../../FilterCheckbox/FilterCheckbox.js";
 
 function SearchForm(
     {
-        handleSearchSubmit,
-        checkBoxClick,
+        handleSearchSubmit = () => {},
+        checkBoxClick = () => {},
         inputValue,
-        shortMovies
+        shortMovies = false,
     }) {
 
     const [inputSearch, setInputSearch] = useState("");
@@ -29,14 +29,14 @@ function SearchForm(
             <div className='searchForm__container'>
                 <form className='searchForm__form' onSubmit={handleSubmit}>
                     <input className='searchForm__input'
+                           name='film'
                            placeholder='Фильм'
                            required
                            onChange={handleChangeInput}
                            value={inputSearch || ""}
                     />
                     <button className='searchForm__btn'
-                            type='button'
-                            aria-label='поиск'
+                            type='submit'
                     />
                 </form>
                 <FilterCheckbox

@@ -3,23 +3,23 @@ import React from "react";
 function FilterCheckbox(
     {
         checkBoxClick = () => {},
-        shortMovies,
+        shortMovies = false,
     }
 ) {
     return (
         <div className='filterCheckbox'>
-            <div className='filterCheckbox__container'>
-
+            <label className='filterCheckbox__container'>
                 <input
                     className='filterCheckbox__input'
                     type='checkbox'
                     id='shortFilm'
-                    onChange={ shortMovies }
-                    // checked={checkBoxClick}
+                    onChange={checkBoxClick}
+                    checked={shortMovies}
                 />
+                <span className='filterCheckbox__switch-slider round'/>
+            </label>
+            <label className='filterCheckbox__label'>Короткометражки</label>
 
-                <label className='filterCheckbox__label'>Короткометражки</label>
-            </div>
 
         </div>
     )

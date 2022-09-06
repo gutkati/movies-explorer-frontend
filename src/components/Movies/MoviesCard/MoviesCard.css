@@ -37,7 +37,6 @@
 .moviesCard__like {
     background-color: #ffffff;
     border: none;
-    background-image: url("../../../images/like-disabled.svg");
     background-repeat: no-repeat;
     background-position: center;
     width: 30px;
@@ -48,19 +47,23 @@
 
 .moviesCard__like:hover {
     cursor: pointer;
+    opacity: .7;
+}
+.moviesCard__like_type_disabled {
+    background-image: url("../../../images/like-disabled.svg");
 }
 
-.moviesCard__like-active {
+.moviesCard__like_type_active {
     background-image: url("../../../images/like-active.svg");
+}
+
+.moviesCard__like_type_delete {
+    background-image: url("../../../images/card-delete.svg");
 }
 
 .moviesCard__image {
     width: 364px;
     height: 203px;
-}
-
-.moviesCard__delete {
-    background-image: url("../../../images/card-delete.svg");
 }
 
 @media screen and (max-width: 900px) {

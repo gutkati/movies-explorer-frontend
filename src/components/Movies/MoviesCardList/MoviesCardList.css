@@ -18,6 +18,12 @@
     padding: 0;
 
 }
+.moviesCardList__notFound {
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 34px;
+    text-align: center;
+}
 
 .moviesCardList__btn {
     width: 100%;

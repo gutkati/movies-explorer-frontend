@@ -41,6 +41,7 @@ function Profile(props) {
     function handleSubmit(e) {
         e.preventDefault();
         setActiveButton(false);
+
         props.editProfile({
             name: name,
             email: email,
@@ -58,7 +59,16 @@ function Profile(props) {
         if (localStorageEmail) {
             setInitialEmail(localStorageEmail);
         }
+
     }, [])
+
+    useEffect(() => {
+        if (currentUser.name || currentUser.email) {
+            setName(currentUser.name)
+            setEmail(currentUser.email)
+        }
+
+    }, [currentUser])
 
     return (
         <div className='profile'>
@@ -70,7 +80,7 @@ function Profile(props) {
                         <label className='profile__label'>Имя</label>
                         <input className='profile__input'
                                id='name'
-                               value={name}
+                               value={name || ""}
                                minLength="2"
                                maxLength="100"
                                onChange={handleChangeName}
@@ -85,7 +95,7 @@ function Profile(props) {
                         <input
                             className='profile__input'
                             id='email'
-                            value={email}
+                            value={email || ""}
                             type='email'
                             minLength="2"
                             maxLength="100"

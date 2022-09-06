@@ -48,7 +48,7 @@ class MainApi {
         return fetch(`${this._baseUrl}/users/me`, {
             method: "GET",
             headers: {
-                authorization: `Bearer ${localStorage.getItem('jwt')}`,
+                authorization: `Bearer ${localStorage.getItem("jwt")}`,
                 "Content-Type": "application/json",
             },
         }).then((res) => this._checkResponse(res));
@@ -72,17 +72,17 @@ class MainApi {
     //     }).then((res) => this._checkResponse(res));
     // }
 
-    editProfile(name, email) {
+    editProfile(info) {
         return fetch(`${this._baseUrl}/users/me`, {
             method: "PATCH",                 //метод изменяет существующие данные на сервере
             credentials: 'include',
             headers: {
-                authorization: `Bearer ${localStorage.getItem('jwt')}`,
+                authorization: `Bearer ${localStorage.getItem("jwt")}`,
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({     //делает из объекта строку
-                name: name,
-                email: email,
+                name: info.name,
+                email: info.email,
             })
         })
     }
@@ -91,7 +91,7 @@ class MainApi {
         return fetch(`${this._baseUrl}/movies`, {
             method: "GET",
             headers: {
-                authorization: `Bearer ${localStorage.getItem('jwt')}`,
+                authorization: `Bearer ${localStorage.getItem("jwt")}`,
                 "Content-Type": "application/json",
             },
         })
@@ -102,7 +102,7 @@ class MainApi {
         return fetch(`${this._baseUrl}/movies`, {
             method: "POST",                 //метод изменяет существующие данные на сервере
             headers: {
-                authorization: `Bearer ${localStorage.getItem('jwt')}`,
+                authorization: `Bearer ${localStorage.getItem("jwt")}`,
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({     //делает из объекта строку
@@ -126,7 +126,7 @@ class MainApi {
         return fetch(`${this._baseUrl}/cards/${movieId}`, {
             method: "DELETE",
             headers: {
-                authorization: `Bearer ${localStorage.getItem('jwt')}`,
+                authorization: `Bearer ${localStorage.getItem("jwt")}`,
                 "Content-Type": "application/json",
             },
         })

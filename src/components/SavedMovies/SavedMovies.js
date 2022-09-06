@@ -8,13 +8,13 @@ function SavedMovies(
     {
         user = {},
         onClickDelete = false,
-        savedCards = [],
+        savedMoviesList = [],
     }) {
 
     const [inputValue, setInputValue] = React.useState(false);
     const [shortMovies, setShortMovies] = React.useState(false);
     const [nothingFound, setNothingFound] = React.useState(true);
-    const [showedMovies, setShowedMovies] = React.useState(savedCards);
+    const [showedMovies, setShowedMovies] = React.useState(savedMoviesList);
     const [filteredMovies, setFilteredMovies] = React.useState(showedMovies);
 
     function filterMovies(movies, request, shortMoviesSwitch) {
@@ -27,21 +27,21 @@ function SavedMovies(
         } else {
             return foundMovies;
         }
-    };
+    }
 
     function filterShortMovies(movies) {
         return movies.filter((movie) => movie.duration <= 40);
-    };
+    }
 
     function handleSearchSubmit(inputValue) {
         localStorage.setItem('savedMoviesSearch', inputValue);
-        if (filterMovies(savedCards, inputValue, shortMovies).length === 0) {
+        if (filterMovies(savedMoviesList, inputValue, shortMovies).length === 0) {
             setNothingFound(true)
         } else {
             setNothingFound(false)
-            setFilteredMovies(filterMovies(savedCards, inputValue, shortMovies))
-            setShowedMovies(filterMovies(savedCards, inputValue, shortMovies))
-            localStorage.setItem('savedMovies', JSON.stringify(savedCards));
+            setFilteredMovies(filterMovies(savedMoviesList, inputValue, shortMovies))
+            setShowedMovies(filterMovies(savedMoviesList, inputValue, shortMovies))
+            localStorage.setItem('savedMovies', JSON.stringify(savedMoviesList));
         }
     }
 
@@ -68,20 +68,20 @@ function SavedMovies(
     React.useEffect(() => {
         if (localStorage.getItem('shortSavedMovies') === 'true') {
             setShortMovies(true)
-            setShowedMovies(filterShortMovies(savedCards))
+            setShowedMovies(filterShortMovies(savedMoviesList))
         } else {
             setShortMovies(false)
-            setShowedMovies(savedCards)
+            setShowedMovies(savedMoviesList)
         }
-    }, [savedCards, user]);
+    }, [savedMoviesList, user]);
 
     React.useEffect(() => {
-        if (savedCards.length !== 0) {
+        if (savedMoviesList.length !== 0) {
             setNothingFound(false)
         } else {
             setNothingFound(true)
         }
-    }, [savedCards])
+    }, [savedMoviesList])
 
 
     // const saved = true;
@@ -101,7 +101,7 @@ function SavedMovies(
                     onClickDelete={onClickDelete}
                     onSaveClick={false}
                     savedMoviesPage={true}
-                    savedCards={savedCards}
+                    savedMovies={savedMoviesList}
                 />
                 {/*<Preloader/>*/}
             </div>

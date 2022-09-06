@@ -10,7 +10,7 @@ function Movies(
         user = {},
         onClickSave = false,
         onClickDelete = false,
-        savedCards = [],
+        savedMoviesList = [],
     }) {
     const currentUser = React.useContext(CurrentUserContext)
     console.log(currentUser)
@@ -86,13 +86,13 @@ function Movies(
         localStorage.setItem("shortMovies", !shortMovies);
     }
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (localStorage.getItem("movieSearch")) {
             setInputValue(localStorage.getItem("movieSearch"));
         }
     }, []);
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (localStorage.getItem("shortMovies") === "true") {
             setShortMovies(true);
         } else {
@@ -100,7 +100,7 @@ function Movies(
         }
     }, [user]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (localStorage.getItem("movies")) {
             const movies = JSON.parse(localStorage.getItem("movies"));
             movies.length === 0 ? setNothingFound(true) : setNothingFound(false);
@@ -134,7 +134,7 @@ function Movies(
                                 nothingFound={nothingFound}
                                 onClickSave={onClickSave}
                                 onClickDelete={onClickDelete}
-                                savedCards={savedCards}
+                                savedMoviesList={savedMoviesList}
                                 savedMoviesPage={false}
                             />
                         </>

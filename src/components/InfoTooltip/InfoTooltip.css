@@ -40,7 +40,7 @@
 .popup__close {
     border: none;
     padding: 0;
-    background-color: #000;
+    background-color: transparent;
     background-image: url("../../images/close-icon.svg");
     background-repeat: no-repeat;
     background-position: center;
@@ -51,6 +51,10 @@
     top: -40px;
     right: -40px;
 
+}
+
+.popup__close:hover {
+    opacity: .7;
 }
 
 @media screen and (max-width: 650px) {

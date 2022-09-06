@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {Route, Switch, useHistory, useLocation, useNavigate} from 'react-router-dom';
+import {Route, Routes, Switch, useHistory, useLocation, useNavigate} from 'react-router-dom';
 import {CurrentUserContext} from '../../contexts/curentUserContext'
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import Header from '../Header/Header.js';
@@ -20,7 +20,7 @@ function App() {
     const loggedIn = true;
     const history = useHistory();
     const [authorized, setAuthorized] = useState(false);
-    const [savedCards, setSavedCards] = useState([]);
+    const [savedMoviesList, setSavedMoviesList] = useState([]);
     const [currentUser, setCurrentUser] = useState({});
     const [message, setMessage] = useState("");
     const [infoTooltipOpen, setInfoTooltipOpen] = useState(false);
@@ -50,11 +50,11 @@ function App() {
                     console.log(err)
                 })
         }
-       // checkToken()
+        // checkToken()
     }, [authorized])
 
     useEffect(() => {
-        const jwt = localStorage.getItem('jwt')
+        const jwt = localStorage.getItem("jwt")
         if (jwt) {
             mainApi
                 .getUserData()
@@ -70,36 +70,12 @@ function App() {
         }
     }, [history])
 
-    function checkToken() {
-        if (localStorage.getItem('jwt')) {
-            const jwt = localStorage.getItem("jwt")
-            console.log("jwt", jwt)
-            if (jwt) {
-                mainApi
-                    .getUserData(jwt)
-                    .then((res) => {
-                        if (res) {
-                            setCurrentUser(res);
-                            setAuthorized(true);
-                            history.push("/movies");
-                        }
-                    })
-                    .catch((err) => {
-                        if (err === 401) {
-                            console.log("401 - Токен не передан или передан не в том формате")
-                        }
-                        console.log("401 - Переданный токен не корректен")
-
-                    })
-            }
-        }
-    }
-
     function handleRegister(name, email, password) {
         mainApi
             .registration(name, email, password)
             .then((res) => {
                 if (res) {
+                    //handleLogin(email, name)
                     setInfoTooltipOpen(true)
                     setIsSymbol(true)
                     setMessage("Вы успешно зарегестрировались");
@@ -122,7 +98,7 @@ function App() {
             .login(email, password)
             .then((data) => {
                 if (data.token) {
-                    localStorage.setItem('jwt', data.token)
+                    localStorage.setItem("jwt", data.token)
                     handlePageLogin();
                     history.push("/movies")
                 }
@@ -146,11 +122,36 @@ function App() {
         checkToken();
     }
 
+    function checkToken() {
+        if (localStorage.getItem("jwt")) {
+            const jwt = localStorage.getItem("jwt")
+            console.log("jwt", jwt)
+            if (jwt) {
+                mainApi
+                    .getUserData(jwt)
+                    .then((data) => {
+                        if (data) {
+                            setAuthorized(true);
+                            history.push("/movies");
+                            setCurrentUser(data);
+                        }
+                    })
+                    .catch((err) => {
+                        if (err === 401) {
+                            console.log("401 - Токен не передан или передан не в том формате")
+                        }
+                        console.log("401 - Переданный токен не корректен")
+
+                    })
+            }
+        }
+    }
+
 
     function handleLogout() {
-        setAuthorized(false)
-        localStorage.removeItem('jwt')
         setCurrentUser({})
+        setAuthorized(false)
+        localStorage.removeItem("jwt")
         history.push('/')
     }
 
@@ -167,9 +168,9 @@ function App() {
     //
     // }
 
-    function handleEditProfile(name, email) {
+    function handleEditProfile(info) {
         mainApi
-            .editProfile(name, email)
+            .editProfile(info)
             .then((res) => {
                 setCurrentUser(res);
                 setInfoTooltipOpen(true)
@@ -205,7 +206,7 @@ function App() {
         mainApi
             .saveMovie(movie)
             .then((newMovie) => {
-                setSavedCards([newMovie, ...savedCards])
+                setSavedMoviesList([newMovie, ...savedMoviesList])
             })
             .catch((err) => {
                 setInfoTooltipOpen(true)
@@ -215,24 +216,24 @@ function App() {
     }
 
     function handleDeleteMovie(movie) {
-        const savedMovie = savedCards.find((item) => {
+        const savedMovie = savedMoviesList.find((item) => {
             if (item.movieId === movie.id || item.movieId === movie.movieId) {
                 return item
             } else {
-                return savedCards
+                return savedMoviesList
             }
         })
         mainApi
             .deleteMovie(savedMovie._id)
             .then((res) => {
-                const newCardList = savedCards.filter((m) => {
+                const newCardList = savedMoviesList.filter((m) => {
                     if (movie.id === m.movieId || movie.movieId === m.movieId) {
                         return false
                     } else {
                         return true
                     }
                 })
-                setSavedCards(newCardList)
+                setSavedMoviesList(newCardList)
             })
             .catch((err) => console.log(err));
     }
@@ -242,8 +243,8 @@ function App() {
         if (authorized) {
             mainApi
                 .getMovie()
-                .then((movies) => {
-                    setSavedCards(movies)
+                .then((data) => {
+                    setSavedMoviesList(data)
                 })
                 .catch((err) => {
                     console.log(err)
@@ -255,7 +256,7 @@ function App() {
     return (
         <CurrentUserContext.Provider value={currentUser}>
             <div className='page'>
-                <Switch>
+                <Route>
                     <Route exact path='/'>
                         <Main/>
                     </Route>
@@ -272,38 +273,42 @@ function App() {
                         </Login>
                     </Route>
 
-                    <ProtectedRoute path='/profile' authorized={authorized}>
-                        <Profile
-                            editProfile={handleEditProfile}
-                            logout={handleLogout}
-                        >
-                            <Header loggedIn={loggedIn}/>
-                        </Profile>
-                    </ProtectedRoute>
-
-                    <ProtectedRoute path='/movies' authorized={authorized}>
-                        <Header loggedIn={loggedIn}/>
-                        <Movies
-                            user={currentUser}
-                            savedCards={savedCards}
-                            onClickSave={handleSaveMovie}
-                            onClickDelete={handleDeleteMovie}
-                        />
-                        <Footer/>
-                    </ProtectedRoute>
-
-                    <ProtectedRoute path='/saved-movies' authorized={authorized}>
-                        <Header loggedIn={loggedIn}/>
-                        <SavedMovies
-                            user={currentUser}
-                            savedCards={savedCards}
-                            onClickDelete={handleDeleteMovie}
-                        />
-                        <Footer/>
-                    </ProtectedRoute>
-
                     <Route path='*'>
                         <NotFound/>
+                    </Route>
+
+                    <Route element={<ProtectedRoute authorized={authorized} redirectPath='/'/>}>
+                        <Route path='/profile'>
+                            <Profile
+                                editProfile={handleEditProfile}
+                                logout={handleLogout}
+                            >
+                                <Header loggedIn={loggedIn}/>
+                            </Profile>
+                        </Route>
+
+                        <Route path='/movies'>
+                            <Header loggedIn={loggedIn}/>
+                            <Movies
+                                user={currentUser}
+                                savedMoviesList={savedMoviesList}
+                                onClickSave={handleSaveMovie}
+                                onClickDelete={handleDeleteMovie}
+                            />
+                            <Footer/>
+                        </Route>
+
+                        <Route path='/saved-movies'>
+                            <Header loggedIn={loggedIn}/>
+                            <SavedMovies
+                                authorized={authorized}
+                                user={currentUser}
+                                savedMoviesList={savedMoviesList}
+                                onClickDelete={handleDeleteMovie}
+                            />
+                            <Footer/>
+                        </Route>
+
                     </Route>
 
                     <InfoTooltip
@@ -313,7 +318,7 @@ function App() {
                         symbol={isSymbol}
                     />
 
-                </Switch>
+                </Route>
 
             </div>
         </CurrentUserContext.Provider>
