@@ -2,7 +2,7 @@ import React, {useState, useRef, useContext, useEffect} from "react";
 import {CurrentUserContext} from '../../contexts/curentUserContext'
 import Header from "../Header/Header";
 
-function Profile(props) {
+function Profile({loggedIn, authorized, logout, editProfile}) {
 
     const currentUser = useContext(CurrentUserContext);
     const [name, setName] = useState(currentUser.name);
@@ -43,7 +43,7 @@ function Profile(props) {
         e.preventDefault();
         setActiveButton(false);
 
-        props.editProfile({
+        editProfile({
             name: name,
             email: email,
         });
@@ -73,7 +73,10 @@ function Profile(props) {
 
     return (
         <>
-            <Header loggedIn={props.loggedIn}/>
+            <Header
+                loggedIn={loggedIn}
+                authorized={authorized}
+            />
             <div className='profile'>
                 <main className='profile__container'>
                     <h2 className='profile__title'>Привет, {name}!</h2>
@@ -121,7 +124,7 @@ function Profile(props) {
                         <button className='profile__edit' type='button' onClick={isEditProfile}>
                             Редактировать
                         </button>
-                        <button className='profile__exit' type='button' onClick={props.logout}>Выйти из аккаунта
+                        <button className='profile__exit' type='button' onClick={logout}>Выйти из аккаунта
                         </button>
                     </div>
                 </main>

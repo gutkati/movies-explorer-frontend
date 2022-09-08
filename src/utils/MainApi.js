@@ -113,7 +113,7 @@ class MainApi {
                 description: movie.description,
                 image: `https://api.nomoreparties.co/${movie.image.url}`,
                 trailerLink: movie.trailerLink,
-                nameRu: movie.nameRu,
+                nameRU: movie.nameRU,
                 nameEN: movie.nameEN,
                 thumbnail: `https://api.nomoreparties.co/${movie.image.formats.thumbnail.url}`,
                 movieId: movie.id,
@@ -123,7 +123,7 @@ class MainApi {
     }
 
     deleteMovie(movieId) {
-        return fetch(`${this._baseUrl}/cards/${movieId}`, {
+        return fetch(`${this._baseUrl}/movies/${movieId}`, {
             method: "DELETE",
             headers: {
                 authorization: `Bearer ${localStorage.getItem("jwt")}`,
@@ -133,6 +133,7 @@ class MainApi {
             .then(this._checkResponse)
     }
 }
+
 
 export const mainApi = new MainApi({
     baseUrl: 'http://localhost:3001',

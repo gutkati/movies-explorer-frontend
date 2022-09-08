@@ -13,7 +13,8 @@ function Movies(
         onClickSave = false,
         onClickDelete = false,
         savedMoviesList = [],
-        loggedIn
+        loggedIn,
+        authorized,
     }) {
     const currentUser = React.useContext(CurrentUserContext)
     console.log(currentUser)
@@ -120,7 +121,10 @@ function Movies(
 
     return (
         <>
-            <Header loggedIn={loggedIn}/>
+            <Header
+                loggedIn={loggedIn}
+                authorized={authorized}
+            />
             <main className='movies'>
                 <SearchForm
                     handleSearchSubmit={handleSearchSubmit}

@@ -10,7 +10,8 @@ function SavedMovies(
         user = {},
         onClickDelete = false,
         savedMoviesList = [],
-        loggedIn
+        loggedIn,
+        authorized
     }) {
 
     const [inputValue, setInputValue] = React.useState(false);
@@ -87,7 +88,9 @@ function SavedMovies(
 
     return (
         <>
-            <Header loggedIn={loggedIn}/>
+            <Header loggedIn={loggedIn}
+                    authorized={authorized}
+            />
             <main className='movies'>
                 <div className='movies__container'>
                     <SearchForm

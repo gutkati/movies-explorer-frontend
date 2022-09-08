@@ -26,19 +26,20 @@ function App() {
     const [isSymbol, setIsSymbol] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
+    const {pathname} = useLocation();
 
 
-    // useEffect(() => {
-    //     if (authorized) {
-    //         moviesApi
-    //             .getBeatFilm()
-    //             .then((cards) => {
-    //                 console.log(cards)
-    //             })
-    //     }
-    //     checkToken()
-    //     setAuthorized(true);
-    // }, [authorized]);
+    useEffect(() => {
+        if (authorized) {
+            moviesApi
+                .getBeatFilm()
+                .then((cards) => {
+                    console.log(cards)
+                })
+        }
+        checkToken()
+        setAuthorized(true);
+    }, [authorized]);
 
     useEffect(() => {
         if (authorized) {
@@ -239,7 +240,6 @@ function App() {
             .catch((err) => console.log(err));
     }
 
-
     useEffect(() => {
         if (authorized) {
             mainApi
@@ -260,7 +260,9 @@ function App() {
                 <Routes>
                     <Route
                         exact path='/'
-                        element={<Main/>}
+                        element={<Main
+                            authorized={authorized}
+                        />}
                     />
 
                     <Route path='/signup'
@@ -292,6 +294,7 @@ function App() {
                                        editProfile={handleEditProfile}
                                        logout={handleLogout}
                                        loggedIn={loggedIn}
+                                       authorized={authorized}
                                    />
                                }
                         />
@@ -304,6 +307,7 @@ function App() {
                                        onClickSave={handleSaveMovie}
                                        onClickDelete={handleDeleteMovie}
                                        loggedIn={loggedIn}
+                                       authorized={authorized}
                                    />}
 
                         />

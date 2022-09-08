@@ -9,10 +9,12 @@ import Footer from "../Footer/Footer.js";
 import Header from "../Header/Header.js";
 import InfoTooltip from "../InfoTooltip/InfoTooltip.js";
 
-function Main() {
+function Main({authorized}) {
     return(
         <div className='main'>
-            <Header />
+            <Header
+                  authorized={authorized}
+            />
             <Promo />
             <AboutProject>
                 <SectionTitle title={'О проекте'} />
