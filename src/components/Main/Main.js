@@ -1,20 +1,14 @@
 import React from "react";
-
 import Promo from "./Promo/Promo.js";
 import AboutProject from "./AboutProject/AboutProject.js";
 import SectionTitle from "./SectionTitle/SectionTitle.js";
 import Techs from "./Techs/Techs.js";
 import AboutMe from "./AboutMe/AboutMe.js";
 import Footer from "../Footer/Footer.js";
-import Header from "../Header/Header.js";
-import InfoTooltip from "../InfoTooltip/InfoTooltip.js";
 
-function Main({authorized}) {
+function Main() {
     return(
         <div className='main'>
-            <Header
-                  authorized={authorized}
-            />
             <Promo />
             <AboutProject>
                 <SectionTitle title={'О проекте'} />

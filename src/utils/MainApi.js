@@ -27,7 +27,6 @@ class MainApi {
     login(email, password) {
         return fetch(`${this._baseUrl}/signin`, {
             method: "POST",
-            credentials: 'include',
             headers: this._headers,
             body: JSON.stringify({
                 email: email,
@@ -75,7 +74,6 @@ class MainApi {
     editProfile(info) {
         return fetch(`${this._baseUrl}/users/me`, {
             method: "PATCH",                 //метод изменяет существующие данные на сервере
-            credentials: 'include',
             headers: {
                 authorization: `Bearer ${localStorage.getItem("jwt")}`,
                 "Content-Type": "application/json",
@@ -136,7 +134,7 @@ class MainApi {
 
 
 export const mainApi = new MainApi({
-    baseUrl: 'http://localhost:3001',
+    baseUrl: `${window.location.protocol}${process.env.REACT_APP_API_URL || '//localhost:3001'}`,
     headers: {
         'Content-Type': 'application/json'
     }

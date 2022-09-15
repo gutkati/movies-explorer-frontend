@@ -1,17 +1,13 @@
 import React from "react";
 import SearchForm from "../Movies/SearchForm/SearchForm.js";
-import Preloader from "../Movies/Preloader/Preloader.js";
 import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList.js";
 import Footer from "../Footer/Footer.js";
-import Header from "../Header/Header";
 
 function SavedMovies(
     {
         user = {},
         onClickDelete = false,
         savedMoviesList = [],
-        loggedIn,
-        authorized
     }) {
 
     const [inputValue, setInputValue] = React.useState(false);
@@ -88,9 +84,6 @@ function SavedMovies(
 
     return (
         <>
-            <Header loggedIn={loggedIn}
-                    authorized={authorized}
-            />
             <main className='movies'>
                 <div className='movies__container'>
                     <SearchForm
@@ -107,7 +100,7 @@ function SavedMovies(
                         savedMoviesPage={true}
                         savedMovies={savedMoviesList}
                     />
-                    {/*<Preloader/>*/}
+
                 </div>
             </main>
             <Footer/>

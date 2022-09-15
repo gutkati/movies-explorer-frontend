@@ -1,5 +1,4 @@
-import React, {useState} from "react";
-import {useLocation} from "react-router-dom"
+import {useLocation} from "react-router-dom";
 
 function MoviesCard(
     {
@@ -10,8 +9,6 @@ function MoviesCard(
         savedMoviesPage = false,
 
     }) {
-
-    const [isLiked, setIsLiked] = useState(false);
 
     const {pathname} = useLocation();
 

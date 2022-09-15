@@ -1,10 +1,8 @@
-import React, {useState, useCallback, useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import SubmitButton from '../SubmitBatton/SubmitButton.js';
 import {Link} from 'react-router-dom';
 
 function Register(props) {
-
-
 
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')

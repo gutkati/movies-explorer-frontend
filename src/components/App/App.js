@@ -1,45 +1,29 @@
 import React, {useState, useEffect} from "react";
-import {Route, Routes, Switch, useLocation, useNavigate} from 'react-router-dom';
-import {CurrentUserContext} from '../../contexts/curentUserContext'
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
+import {Route, Routes, useLocation, useNavigate} from 'react-router-dom';
+import {CurrentUserContext} from '../../contexts/curentUserContext';
+import {mainApi} from "../../utils/MainApi.js";
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Header from '../Header/Header.js';
 import Register from '../Register/Register.js';
 import SectionWelcome from '../SectionWelcome/SectionWelcome.js';
 import Login from '../Login/Login.js';
 import Profile from '../Profile/Profile.js';
 import Movies from '../Movies/Movies.js';
-import Main from "../Main/Main.js"
-import Footer from "../Footer/Footer.js";
+import Main from "../Main/Main.js";
 import SavedMovies from "../SavedMovies/SavedMovies.js";
 import NotFound from "../NotFound/NotFound.js";
-import {mainApi} from "../../utils/MainApi.js";
-import {moviesApi} from "../../utils/MoviesApi"
-import InfoTooltip from "../InfoTooltip/InfoTooltip.js"
+import InfoTooltip from "../InfoTooltip/InfoTooltip.js";
 
 function App() {
     const loggedIn = true;
-    const [authorized, setAuthorized] = useState(undefined);
+    const [authorized, setAuthorized] = useState(false);
     const [savedMoviesList, setSavedMoviesList] = useState([]);
     const [currentUser, setCurrentUser] = useState({});
     const [message, setMessage] = useState("");
     const [infoTooltipOpen, setInfoTooltipOpen] = useState(false);
     const [isSymbol, setIsSymbol] = useState(false);
     const navigate = useNavigate();
-    const location = useLocation();
     const {pathname} = useLocation();
-
-
-    useEffect(() => {
-        if (authorized) {
-            moviesApi
-                .getBeatFilm()
-                .then((cards) => {
-                    console.log(cards)
-                })
-        }
-        checkToken()
-        setAuthorized(true);
-    }, [authorized]);
 
     useEffect(() => {
         if (authorized) {
@@ -52,7 +36,6 @@ function App() {
                     console.log(err)
                 })
         }
-        // checkToken()
     }, [authorized])
 
     useEffect(() => {
@@ -60,9 +43,8 @@ function App() {
         if (jwt) {
             mainApi
                 .getUserData()
-                .then((data) => {
-                    console.log(data)
-                    if (data) {
+                .then((res) => {
+                    if (res) {
                         setAuthorized(true)
                     }
                 })
@@ -72,25 +54,49 @@ function App() {
         }
     }, [navigate])
 
+    function checkToken() {
+        if (localStorage.getItem("jwt")) {
+            const jwt = localStorage.getItem("jwt")
+            if (jwt) {
+                mainApi
+                    .getUserData(jwt)
+                    .then((data) => {
+                        if (data) {
+                            setAuthorized(true);
+                            setCurrentUser(data);
+                        }
+                    })
+                    .catch((err) => {
+
+                        if (err === 401) {
+                            setAuthorized(false)
+                            console.log("401 - Токен не передан или передан не в том формате")
+                        }
+                        console.log("401 - Переданный токен не корректен")
+
+                    })
+            }
+            if (!jwt) {
+                setAuthorized(false)
+            }
+        }
+    }
+
     function handleRegister(name, email, password) {
         mainApi
             .registration(name, email, password)
             .then((res) => {
                 if (res) {
-                    //handleLogin(email, name)
-                    setInfoTooltipOpen(true)
-                    setIsSymbol(true)
-                    setMessage("Вы успешно зарегестрировались");
-                    navigate('/signin')
+                    handleLogin(email, password)
                 }
             })
             .catch((err) => {
                 setInfoTooltipOpen(true)
                 setIsSymbol(false)
                 setMessage("Что-то пошло не так! Попробуйте ещё раз.");
-                // if (err === 400) {
-                //     console.log("400 - некорректно заполнено одно из полей");
-                // }
+                if (err === 400) {
+                    console.log("400 - некорректно заполнено одно из полей");
+                }
 
             })
     }
@@ -124,31 +130,6 @@ function App() {
         checkToken();
     }
 
-    function checkToken() {
-        if (localStorage.getItem("jwt")) {
-            const jwt = localStorage.getItem("jwt")
-            console.log("jwt", jwt)
-            if (jwt) {
-                mainApi
-                    .getUserData(jwt)
-                    .then((data) => {
-                        if (data) {
-                            setAuthorized(true);
-                            navigate("/movies");
-                            setCurrentUser(data);
-                        }
-                    })
-                    .catch((err) => {
-                        if (err === 401) {
-                            console.log("401 - Токен не передан или передан не в том формате")
-                        }
-                        console.log("401 - Переданный токен не корректен")
-
-                    })
-            }
-        }
-    }
-
 
     function handleLogout() {
         setCurrentUser({})
@@ -156,19 +137,6 @@ function App() {
         localStorage.removeItem("jwt")
         navigate('/')
     }
-
-    // function handleLogout() {
-    //     mainApi
-    //         .logout()
-    //         .then((res) => {
-    //             setAuthorized(false)
-    //             setCurrentUser({})
-    //             localStorage.removeItem("jwt")
-    //             history.push("/")
-    //         })
-    //         .catch(err => console.log(err))
-    //
-    // }
 
     function handleEditProfile(info) {
         mainApi
@@ -182,27 +150,24 @@ function App() {
             .catch((err) => console.log(err));
     }
 
-// useEffect(() => {
-//     checkToken()
-// })
-
     function closeInfoTooltip() {
         setInfoTooltipOpen(false)
     }
 
-
 // раздел с фильмами
 
-// useEffect(() => {
-//     if (authorized) {
-//         moviesApi
-//             .getBeatFilm()
-//             .then((cards) => {
-//                 console.log(cards)
-//                 setFilteredCards(cards);
-//             })
-//     }
-// }, [authorized]);
+    useEffect(() => {
+        if (authorized) {
+            mainApi
+                .getMovie()
+                .then((data) => {
+                    setSavedMoviesList(data)
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+        }
+    }, [authorized])
 
     function handleSaveMovie(movie) {
         mainApi
@@ -240,29 +205,21 @@ function App() {
             .catch((err) => console.log(err));
     }
 
-    useEffect(() => {
-        if (authorized) {
-            mainApi
-                .getMovie()
-                .then((data) => {
-                    setSavedMoviesList(data)
-                })
-                .catch((err) => {
-                    console.log(err)
-                })
-        }
-    }, [authorized])
-
-
     return (
         <CurrentUserContext.Provider value={currentUser}>
             <div className='page'>
+                {pathname === "/" ||
+                pathname === "/movies" ||
+                pathname === "/saved-movies" ||
+                pathname === "/profile" ? (
+                    <Header authorized={authorized}/>
+                ) : (
+                    ""
+                )}
                 <Routes>
                     <Route
                         exact path='/'
-                        element={<Main
-                            authorized={authorized}
-                        />}
+                        element={<Main/>}
                     />
 
                     <Route path='/signup'
@@ -337,7 +294,3 @@ function App() {
 }
 
 export default App;
-
-
-
-

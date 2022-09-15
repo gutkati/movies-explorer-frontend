@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from "react";
-import FilterCheckbox from "../../FilterCheckbox/FilterCheckbox.js";
 
 function SearchForm(
     {
-        handleSearchSubmit = () => {},
-        checkBoxClick = () => {},
+        handleSearchSubmit = () => {
+        },
+        checkBoxClick = () => {
+        },
         inputValue,
         shortMovies = false,
     }) {
@@ -12,17 +13,17 @@ function SearchForm(
     const [inputSearch, setInputSearch] = useState("");
 
     function handleChangeInput(e) {
-    setInputSearch(e.target.value);
-  }
+        setInputSearch(e.target.value);
+    }
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    handleSearchSubmit(inputSearch);
-  }
+    function handleSubmit(e) {
+        e.preventDefault();
+        handleSearchSubmit(inputSearch);
+    }
 
-  useEffect(() => {
-    setInputSearch(inputValue);
-  }, [inputValue]);
+    useEffect(() => {
+        setInputSearch(inputValue);
+    }, [inputValue]);
 
     return (
         <div className='searchForm'>
@@ -38,11 +39,21 @@ function SearchForm(
                     <button className='searchForm__btn'
                             type='submit'
                     />
+
                 </form>
-                <FilterCheckbox
-                   shortMovies={shortMovies}
-                   checkBoxClick={checkBoxClick}
-                />
+
+                <div className="searchForm__switch-line">
+                        <label className="searchForm__switch">
+                            <input
+                                type="checkbox"
+                                className="searchForm__switch-input"
+                                checked={shortMovies}
+                                onChange={checkBoxClick}
+                            />
+                            <span className="searchForm__switch-slider round"></span>
+                        </label>
+                        <p className="searchForm__switch-text">Короткометражки</p>
+                    </div>
             </div>
             <div className='searchForm__border'/>
         </div>

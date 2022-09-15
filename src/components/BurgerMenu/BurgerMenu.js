@@ -9,19 +9,19 @@ function BurgerMenu({isOpenBurgerMenu, closeBurgerMenu}) {
                 <button className="burgerMenu__btn-close" type='button' onClick={closeBurgerMenu}/>
                 <ul className='burgerMenu__list'>
                     <li className='burgerMenu__item'>
-                        <NavLink className='burgerMenu__link' to='/'>Главная</NavLink>
+                        <NavLink
+                            className={({isActive}) => `burgerMenu__link ${isActive ? 'burgerMenu__item_active' : ""}`}
+                            to='/'>Главная</NavLink>
                     </li>
                     <li className='burgerMenu__item'>
-                        <NavLink to='/movies'
-                                 className='burgerMenu__link'
-                                 activeClassName='burgerMenu__item_active'
-                        >Фильмы</NavLink>
+                        <NavLink
+                            className={({isActive}) => `burgerMenu__link ${isActive ? 'burgerMenu__item_active' : ""}`}
+                            to='/movies'>Фильмы</NavLink>
                     </li>
                     <li className='burgerMenu__item'>
-                        <NavLink to='/saved-movies'
-                                 className='burgerMenu__link'
-                                 activeClassName='burgerMenu__item_active'
-                        >Сохраненные фильмы</NavLink>
+                        <NavLink
+                            className={({isActive}) => `burgerMenu__link ${isActive ? 'burgerMenu__item_active' : ""}`}
+                            to='/saved-movies'>Сохраненные фильмы</NavLink>
                     </li>
                 </ul>
                 <div className='burgerMenu__account'>

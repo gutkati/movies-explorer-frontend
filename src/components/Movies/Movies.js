@@ -3,9 +3,7 @@ import SearchForm from './SearchForm/SearchForm.js';
 import Preloader from './Preloader/Preloader.js';
 import MoviesCardList from './MoviesCardList/MoviesCardList.js';
 import {moviesApi} from '../../utils/MoviesApi.js';
-import {CurrentUserContext} from '../../contexts/curentUserContext'
 import Footer from "../Footer/Footer";
-import Header from "../Header/Header";
 
 function Movies(
     {
@@ -13,11 +11,7 @@ function Movies(
         onClickSave = false,
         onClickDelete = false,
         savedMoviesList = [],
-        loggedIn,
-        authorized,
     }) {
-    const currentUser = React.useContext(CurrentUserContext)
-    console.log(currentUser)
 
     const [isDataLoading, setIsDataLoading] = useState(false);
     const [shortMovies, setShortMovies] = useState(false);
@@ -57,7 +51,6 @@ function Movies(
         moviesApi
             .getBeatFilm()
             .then((res) => {
-                console.log(res)
                 handleSetFilteredMovies(res, inputValue, shortMovies);
             })
             .catch((err) => {
@@ -121,10 +114,6 @@ function Movies(
 
     return (
         <>
-            <Header
-                loggedIn={loggedIn}
-                authorized={authorized}
-            />
             <main className='movies'>
                 <SearchForm
                     handleSearchSubmit={handleSearchSubmit}

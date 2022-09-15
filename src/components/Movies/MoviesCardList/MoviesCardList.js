@@ -112,13 +112,19 @@ function MoviesCardList(
                                     ))
                                 }
                             </div>
-                            {movieList.length >= 5 && movieList.length < movieList.length ? (
-                                <button onClick={handleClickElse}
-                                        className='moviesCardList__btn'>
-                                    Ещё
-                                </button>
-                            ) : ("")
-                            }
+                            {movieList.length >= 5 &&
+                            movieList.length < moviesList.length ? (
+                                <div className="moviesCardList__else">
+                                    <button
+                                        className="moviesCardList__button"
+                                        onClick={handleClickElse}
+                                    >
+                                        Ещё
+                                    </button>
+                                </div>
+                            ) : (
+                                ""
+                            )}
                         </>
                     )}
 
@@ -127,7 +133,5 @@ function MoviesCardList(
         </div>
     )
 }
-
-//className={`moviesCardList__btn ${saved ? 'moviesCardList__btn_hidden' : ""}`}
 
 export default MoviesCardList;

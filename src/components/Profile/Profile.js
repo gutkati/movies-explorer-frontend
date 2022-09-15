@@ -1,8 +1,7 @@
 import React, {useState, useRef, useContext, useEffect} from "react";
 import {CurrentUserContext} from '../../contexts/curentUserContext'
-import Header from "../Header/Header";
 
-function Profile({loggedIn, authorized, logout, editProfile}) {
+function Profile({logout, editProfile}) {
 
     const currentUser = useContext(CurrentUserContext);
     const [name, setName] = useState(currentUser.name);
@@ -12,8 +11,6 @@ function Profile({loggedIn, authorized, logout, editProfile}) {
     const [activeButton, setActiveButton] = useState(false);
     const nameInput = useRef();
     const emailInput = useRef();
-
-    console.log(currentUser)
 
     function handleChangeName(e) {
         setName(e.target.value);
@@ -73,10 +70,6 @@ function Profile({loggedIn, authorized, logout, editProfile}) {
 
     return (
         <>
-            <Header
-                loggedIn={loggedIn}
-                authorized={authorized}
-            />
             <div className='profile'>
                 <main className='profile__container'>
                     <h2 className='profile__title'>Привет, {name}!</h2>
@@ -110,9 +103,6 @@ function Profile({loggedIn, authorized, logout, editProfile}) {
                             />
                         </div>
                         <div className='profile__container-submit'>
-                            {/*<span className={`profile__errorMessage ${disabled ? 'profile__errorMessage_visible' : ""}`}>*/}
-                            {/*    При обновлении профиля произошла ошибка*/}
-                            {/*</span>*/}
                             <button
                                 type='submit'
                                 className={`profile__btn-save ${!activeButton ? 'profile__btn-save_disabled' : ""} ${activeButton ? 'profile__btn-save_visible' : ""}`}>

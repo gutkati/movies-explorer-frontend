@@ -1,15 +1,4 @@
  import React from 'react';
-import {Route} from "react-router-dom";
-
-// const ProtectedRoute = ({authorized, children, ...props}) => {
-//     return (
-//         <Route {...props}>
-//             {authorized ? children : <redirectPath to="/"/>}
-//         </Route>
-//     )
-// }
-//
-// export default ProtectedRoute;
 
 import { Navigate, Outlet } from "react-router-dom";
 

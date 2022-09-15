@@ -13,6 +13,7 @@ class MoviesApi {
 
     getBeatFilm() {
         return fetch(`${this._baseUrl}`, {
+            method: 'GET',
             headers: this._headers,
         })
             .then(this._checkResponse) //если сервер ответил успешно(ok) создаем из ответа объект, если нет то появляется ошибка
