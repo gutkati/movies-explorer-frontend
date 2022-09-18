@@ -35,14 +35,6 @@ class MainApi {
         }).then((res) => this._checkResponse(res));
     }
 
-    // logout() {
-    //     return fetch(`${this._baseUrl}/logout`, {
-    //         credentials: 'include',
-    //         headers: this._headers,
-    //
-    //     }).then((res) => this._checkResponse(res));
-    // }
-
     getUserData(jwt) {
         return fetch(`${this._baseUrl}/users/me`, {
             method: "GET",
@@ -52,24 +44,6 @@ class MainApi {
             },
         }).then((res) => this._checkResponse(res));
     }
-
-    // getUserData(jwt) {
-    //     return fetch(`${this._baseUrl}/users/me`, {
-    //         method: "GET",
-    //         credentials: 'include',
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //             Authorization: `Bearer ${jwt}`,
-    //         },
-    //     }).then((res) => this._checkResponse(res));
-    // }
-
-    // getUserData() {
-    //     return fetch(`${this._baseUrl}/users/me`, {
-    //         headers: this._headers,
-    //         credentials: "include"
-    //     }).then((res) => this._checkResponse(res));
-    // }
 
     editProfile(info) {
         return fetch(`${this._baseUrl}/users/me`, {
@@ -134,7 +108,8 @@ class MainApi {
 
 
 export const mainApi = new MainApi({
-    baseUrl: `${window.location.protocol}${process.env.REACT_APP_API_URL || '//localhost:3001'}`,
+    // baseUrl: `${window.location.protocol}${process.env.REACT_APP_API_URL || '//localhost:3001'}`,
+    baseUrl: "https://api.cinema.service.nomoredomains.sbs",
     headers: {
         'Content-Type': 'application/json'
     }

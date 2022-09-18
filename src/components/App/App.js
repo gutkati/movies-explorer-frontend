@@ -202,7 +202,11 @@ function App() {
                 })
                 setSavedMoviesList(newCardList)
             })
-            .catch((err) => console.log(err));
+            .catch((err) => {
+                setInfoTooltipOpen(true)
+                setIsSymbol(false)
+                setMessage('Что-то пошло не так')
+            })
     }
 
     return (
