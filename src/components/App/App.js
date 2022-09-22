@@ -135,6 +135,7 @@ function App() {
         setCurrentUser({})
         setAuthorized(false)
         localStorage.removeItem("jwt")
+        localStorage.clear()
         navigate('/')
     }
 
@@ -185,8 +186,6 @@ function App() {
     function handleDeleteMovie(movie) {
         const savedMovie = savedMoviesList.find((item) => {
             if (item.movieId === movie.id || item.movieId === movie.movieId) {
-                return item
-            } else {
                 return savedMoviesList
             }
         })
@@ -226,23 +225,31 @@ function App() {
                         element={<Main/>}
                     />
 
-                    <Route path='/signup'
-                           element={
-                               <Register
-                                   register={handleRegister}>
-                                   <SectionWelcome title={'Добро пожаловать!'}/>
-                               </Register>
-                           }
-                    />
+                    {authorized ? <Route path="*" element={<NotFound/>}/>
+                        :
+                        <Route path='/signup'
+                               element={
+                                   <Register
+                                       register={handleRegister}
+                                       authorized={!authorized}
+                                   >
+                                       <SectionWelcome
+                                           title={'Добро пожаловать!'}/>
+                                   </Register>
+                               }/>}
 
-                    <Route path='/signin'
-                           element={
-                               <Login
-                                   login={handleLogin}>
-                                   <SectionWelcome title={'Рады видеть!'}/>
-                               </Login>
-                           }
-                    />
+                    {authorized ? <Route path="*" element={<NotFound/>}/>
+                        :
+                        <Route path='/signin'
+                               element={
+                                   <Login
+                                       login={handleLogin}
+                                       authorized={!authorized}
+                                   >
+                                       <SectionWelcome
+                                           title={'Рады видеть!'}/>
+                                   </Login>
+                               }/>}
 
                     <Route path='*'
                            element={<NotFound/>}
@@ -285,6 +292,7 @@ function App() {
                         />
 
                     </Route>
+
                 </Routes>
                 <InfoTooltip
                     isOpen={infoTooltipOpen}

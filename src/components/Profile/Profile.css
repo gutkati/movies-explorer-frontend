@@ -76,11 +76,15 @@
     color: #FFFFFF;
     cursor: pointer;
     padding: 0;
-    display: none;
+
 }
 
 .profile__btn-save:hover {
     opacity: .8;
+}
+
+.profile__btn-save:disabled {
+    opacity: 40%;
 }
 
 .profile__btn-save_disabled {
@@ -95,6 +99,10 @@
 
 .profile__btn-save_visible {
     display: block;
+}
+
+.profile__btn-save_hidden {
+    display: none;
 }
 
 .profile__edit-exit {

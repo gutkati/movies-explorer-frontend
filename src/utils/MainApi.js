@@ -55,8 +55,8 @@ class MainApi {
             body: JSON.stringify({     //делает из объекта строку
                 name: info.name,
                 email: info.email,
-            })
-        })
+            }),
+        }).then((res) => this._checkResponse(res))
     }
 
     getMovie() {
@@ -108,7 +108,7 @@ class MainApi {
 
 
 export const mainApi = new MainApi({
-     //baseUrl: `${window.location.protocol}${process.env.REACT_APP_API_URL || '//localhost:3001'}`,
+     // baseUrl: `${window.location.protocol}${process.env.REACT_APP_API_URL || '//localhost:3001'}`,
     baseUrl: "https://api.cinema.service.nomoredomains.sbs",
     headers: {
         'Content-Type': 'application/json'

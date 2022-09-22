@@ -1,89 +1,65 @@
 import React, {useState, useRef, useContext, useEffect} from "react";
 import {CurrentUserContext} from '../../contexts/curentUserContext'
+import useFormWithValidation from "../../utils/validation";
+
 
 function Profile({logout, editProfile}) {
-
     const currentUser = useContext(CurrentUserContext);
-    const [name, setName] = useState(currentUser.name);
-    const [email, setEmail] = useState(currentUser.email);
-    const [initialName, setInitialName] = useState(currentUser.name);
-    const [initialEmail, setInitialEmail] = useState(currentUser.email);
-    const [activeButton, setActiveButton] = useState(false);
+
+    const {values, setValues, isValid, handleChange} = useFormWithValidation();
     const nameInput = useRef();
     const emailInput = useRef();
 
-    function handleChangeName(e) {
-        setName(e.target.value);
-        if (e.target.value !== initialName) {
-            setActiveButton(true);
-        } else {
-            setActiveButton(false);
-        }
-    }
+    const [isActive, setIsActive] = useState(false);
+    const [inputActive, setInputActive] = useState(false);
 
-    function handleChangeEmail(e) {
-        setEmail(e.target.value);
-        if (e.target.value !== initialEmail) {
-            setActiveButton(true);
-        } else {
-            setActiveButton(false);
-        }
-    }
-
-    function isEditProfile() {
-        setActiveButton(true)
-        nameInput.current.removeAttribute("disabled")
-        emailInput.current.removeAttribute("disabled")
-    }
-
-    function handleSubmit(e) {
-        e.preventDefault();
-        setActiveButton(false);
-
-        editProfile({
-            name: name,
-            email: email,
-        });
-        localStorage.setItem('name', name)
-        localStorage.setItem('email', email)
-    }
-
-    React.useEffect(() => {
-        const localStorageName = localStorage.getItem('name');
-        if (localStorageName) {
-            setInitialName(localStorageName);
-        }
-        const localStorageEmail = localStorage.getItem('email');
-        if (localStorageEmail) {
-            setInitialEmail(localStorageEmail);
-        }
-
-    }, [])
 
     useEffect(() => {
-        if (currentUser.name || currentUser.email) {
-            setName(currentUser.name)
-            setEmail(currentUser.email)
-        }
-
+        setValues({
+            name: currentUser.name,
+            email: currentUser.email
+        })
     }, [currentUser])
+
+    function inputEditProfile() {
+        setIsActive(true);
+        setInputActive(true);
+    }
+
+    const handleFormSubmit = (evt) => {
+        evt.preventDefault();
+
+        editProfile({
+            name: values.name,
+            email: values.email
+        });
+        setIsActive(false);
+        console.log(currentUser)
+    }
+
+    const handleToggle = () => {
+        setInputActive(false);
+    }
 
     return (
         <>
             <div className='profile'>
                 <main className='profile__container'>
-                    <h2 className='profile__title'>Привет, {name}!</h2>
-                    <form className='profile__form' onSubmit={handleSubmit}>
+                    <h2 className='profile__title'>Привет, {currentUser.name}!</h2>
+                    <form className='profile__form' onSubmit={handleFormSubmit}>
                         <div className='profile__container-input'>
                             <label className='profile__label'>Имя</label>
                             <input className='profile__input'
-                                   id='name'
-                                   value={name || ""}
-                                   minLength="2"
-                                   maxLength="100"
-                                   onChange={handleChangeName}
-                                   disabled
+                                   type="name"
+                                   name="name"
+                                   id="name"
                                    ref={nameInput}
+                                   minLength="2"
+                                   maxLength="30"
+                                   required
+                                   disabled={!inputActive}
+                                   onChange={handleChange}
+                                   value={values.name || ''}
                             />
 
                         </div>
@@ -92,26 +68,30 @@ function Profile({logout, editProfile}) {
                             <label className='profile__label'>E-mail</label>
                             <input
                                 className='profile__input'
-                                id='email'
-                                value={email || ""}
-                                type='email'
-                                minLength="2"
-                                maxLength="100"
-                                onChange={handleChangeEmail}
-                                disabled
+                                type="email"
+                                name="email"
+                                id="email"
                                 ref={emailInput}
+                                required
+                                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,}$"
+                                disabled={!inputActive}
+                                onChange={handleChange}
+                                value={values.email || ''}
                             />
                         </div>
                         <div className='profile__container-submit'>
                             <button
                                 type='submit'
-                                className={`profile__btn-save ${!activeButton ? 'profile__btn-save_disabled' : ""} ${activeButton ? 'profile__btn-save_visible' : ""}`}>
+                                className={`profile__btn-save ${!isActive ? 'profile__btn-save_hidden' : ""} `}
+                                disabled={!isValid || (currentUser.name === values.name && currentUser.email === values.email)}
+                                onClick={handleToggle}
+                            >
                                 Сохранить
                             </button>
                         </div>
                     </form>
-                    <div className={`profile__edit-exit ${activeButton ? 'profile__edit-exit_hidden' : ""}`}>
-                        <button className='profile__edit' type='button' onClick={isEditProfile}>
+                    <div className={`profile__edit-exit ${isActive ? 'profile__edit-exit_hidden' : ""}`}>
+                        <button className='profile__edit' type='button' onClick={inputEditProfile}>
                             Редактировать
                         </button>
                         <button className='profile__exit' type='button' onClick={logout}>Выйти из аккаунта
@@ -121,7 +101,6 @@ function Profile({logout, editProfile}) {
             </div>
         </>
     )
-
 
 }
 
