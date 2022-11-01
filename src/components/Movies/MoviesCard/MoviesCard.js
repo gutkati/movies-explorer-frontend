@@ -1,35 +1,61 @@
-import React, {useState} from "react";
-import film1 from '../../../images/film-1.png'
-import {CurrentUserContext} from "../../../utils/contexts/curentUserContext.js";
+import {useLocation} from "react-router-dom";
 
+function MoviesCard(
+    {
+        movie = {},
+        saved = false,
+        onClickSave = false,
+        onClickDelete = false,
+        savedMoviesPage = false,
 
-function MoviesCard({saved}) {
+    }) {
 
-    const currentUser = React.useContext(CurrentUserContext);
-    const [isLiked, setIsLiked] = useState(false);
+    const {pathname} = useLocation();
 
-    function handleCardLike() {
-        setIsLiked(true)
+    function handleClickSave() {
+        onClickSave(movie);
     }
 
-    const cardLikeButtonClassName = `moviesCard__like ${ isLiked ? "moviesCard__like-active" : ""} ${ saved ? "moviesCard__delete" : ""}`;
+    function handleClickDelete() {
+        onClickDelete(movie);
+    }
+
+    function transferToHouse(duration) {
+        return `${Math.floor(duration / 60)}ч ${duration % 60}м`;
+    }
 
     return (
-        <div className='moviesCard'>
-            <div className='moviesCard__container'>
-                <div className='moviesCard__info'>
-                    <h3 className='moviesCard__title'>33 слова о дизайне</h3>
-                    <p className='moviesCard__time'>1ч 47м</p>
+        <>
+            <div className='moviesCard'>
+                <div className='moviesCard__container'>
+                    <div className='moviesCard__info'>
+                        <h3 className='moviesCard__title'>{movie.nameRU}</h3>
+                        <p className='moviesCard__time'>{transferToHouse(movie.duration)}</p>
+                    </div>
+                    {!savedMoviesPage ? (
+                        <button
+                            onClick={saved ? handleClickDelete : handleClickSave}
+                            className={saved
+                                ? "moviesCard__like moviesCard__like_type_active"
+                                : "moviesCard__like moviesCard__like_type_disabled"}
+                        />
+                    ) : (
+                        <button
+                            className="moviesCard__like moviesCard__like_type_delete"
+                            type='button'
+                            aria-label='нравится'
+                            onClick={handleClickDelete}
+                        />)}
+
                 </div>
-                <button
-                    className={cardLikeButtonClassName}
-                    type='button'
-                    aria-label='нравится'
-                    onClick={handleCardLike}
-                />
+                <a className='moviesCard__image-link' href={movie.trailerLink} target='blank'>
+                    <img className='moviesCard__image'
+                         src={pathname === '/saved-movies' ?
+                             `${movie.image}` : `http://api.nomoreparties.co${movie.image.formats.thumbnail.url}`}
+                         alt={movie.nameRU}/>
+                </a>
             </div>
-            <img className='moviesCard__image' src={film1} alt='Обложка фильма' />
-        </div>
+        </>
     )
 }
 

@@ -1,8 +1,8 @@
 import React from "react";
 
-function SubmitButton({name}) {
+function SubmitButton({name, formValid}) {
     return (
-        <button className='submitButton' type='submit'>{name}</button>
+        <button className='submitButton' disabled={formValid} type='submit'>{name}</button>
     )
 }
 

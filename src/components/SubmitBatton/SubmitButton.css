@@ -13,6 +13,15 @@
     padding: 0;
 }
 
+.submitButton:disabled {
+    background-color: grey;
+}
+
+.submitButton:disabled:hover {
+    cursor: not-allowed;
+    opacity: 1;
+}
+
 .submitButton:hover {
     opacity: .8;
 }

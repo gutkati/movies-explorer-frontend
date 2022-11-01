@@ -12,4 +12,9 @@
 - Страница с фильмами. Возможность найти фильм в поисковике  
 - Страница с созраненными фильмами. Содержит фильмы, которые сохранил пользователь  
 
-## Макет: [ссылка](https://www.figma.com/file/mHKIMTorOGfJGnaSh00YqK/Diploma-(Copy)?node-id=891%3A3857)
+### Макет: [ссылка](https://www.figma.com/file/mHKIMTorOGfJGnaSh00YqK/Diploma-(Copy)?node-id=891%3A3857)
+### Информация о сервере:  
+IP: 84.252.136.128  
+backend: https://api.cinema.service.nomoredomains.sbs  
+frontend: https://cinema.service.nomoredomains.sbs  
+pull requests: [ссылка](https://github.com/gutkati/movies-explorer-frontend/pull/2)
