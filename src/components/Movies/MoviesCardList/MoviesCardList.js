@@ -1,5 +1,13 @@
 import React from "react";
 import MoviesCard from "../MoviesCard/MoviesCard.js";
+import {
+    WIDTH_SCREEN_DESKTOP,
+    WIDTH_SCREEN_TABLET,
+    WIDTH_SCREEN_MOBILE,
+    QUANTITY_CARDS_DESKTOP,
+    QUANTITY_CARDS_TABLET,
+    QUANTITY_CARDS_MOBILE,
+} from "../../../utils/constants";
 
 function MoviesCardList(
     {
@@ -13,16 +21,15 @@ function MoviesCardList(
 
     const [movieList, setMovieList] = React.useState([]);
     const [cardsShowDetails, setCardsShowDetails] = React.useState({
-        total: 12,
-        extra: 3,
+        QUANTITY_CARDS_DESKTOP
     });
     const [isMount, setIsMount] = React.useState(true);
     const getScreenWidth = React.useCallback(() => window.innerWidth, []);
     const [screenWidth, setScreenWidth] = React.useState(getScreenWidth());
     const moviesCount = {
-        bigScreen: {width: 1280, cards: {total: 12, extra: 3}},
-        normalScreen: {width: 768, cards: {total: 8, extra: 2}},
-        smallScreen: {width: 480, cards: {total: 5, extra: 2}},
+        bigScreen: {width: WIDTH_SCREEN_DESKTOP, cards: QUANTITY_CARDS_DESKTOP},
+        normalScreen: {width: WIDTH_SCREEN_TABLET, cards: QUANTITY_CARDS_TABLET},
+        smallScreen: {width: WIDTH_SCREEN_MOBILE, cards: QUANTITY_CARDS_MOBILE},
     };
 
     React.useEffect(() => {

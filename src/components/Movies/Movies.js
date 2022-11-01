@@ -51,6 +51,7 @@ function Movies(
         moviesApi
             .getBeatFilm()
             .then((res) => {
+                console.log(res)
                 handleSetFilteredMovies(res, inputValue, shortMovies);
             })
             .catch((err) => {
